@@ -13,7 +13,7 @@ machine:
     PYTHONPATH: ${PYTHONPATH}:${HOME}/google_appengine
 
     # Replace this with your project ID
-    GCLOUD_PROJECT: "$GCLOUD_PROJECT_ID"
+    GCLOUD_PROJECT: "shoko-w4156"
 
 dependencies:
   pre:
@@ -31,7 +31,7 @@ dependencies:
     # authenticate gcloud
     - gcloud auth activate-service-account --key-file ${HOME}/client-secret.json  
     # Replace <your-project-id>
-    - gcloud config set project $GCLOUD_PROJECT_ID
+    - gcloud config set project shoko-w4156
 
 test:
   override:
