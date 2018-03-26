@@ -33,10 +33,10 @@ dependencies:
     # Replace <your-project-id>
     - gcloud config set project shoko-w4156
 
-test:
-  override:
+#test:
+ # override:
     # run local unit tests
-    - python tests/test_main.py
+    #- python tests/test_main.py
 
 deployment:
     staging:
