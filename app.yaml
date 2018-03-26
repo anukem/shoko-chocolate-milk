@@ -11,6 +11,7 @@ runtime: python
 env: flex
 api_version: 1
 threadsafe: yes
+entrypoint: gunicorn -b :$PORT main:app
 
 runtime_config:
   python_version: 3
