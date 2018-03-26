@@ -29,7 +29,8 @@ def login():
 	error = None
 	if request.method == "POST":
 		if is_valid_login( request.form(['username']), request.form(["password"])):
-			login_the_user( request.form(["username"]))
+			#login_the_user( request.form(["username"]))
+			error
 		else:
 			error = "invalid username/password"
 	
