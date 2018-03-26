@@ -28,7 +28,3 @@ env_variables:
     CLOUDSQL_CONNECTION_NAME: shoko-w4156:us-east1:library
     CLOUDSQL_USER: root
 
-#required for Cloud SQL
-libraries:
-- name: MySQLdb
-  version: "latest"
