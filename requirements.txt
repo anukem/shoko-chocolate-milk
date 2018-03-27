@@ -65,3 +65,5 @@ SQLAlchemy==1.2.5
 text-unidecode==1.2
 urllib3==1.22
 Werkzeug==0.14.1
+psycopg2==2.7.4
+gunicorn==19.7.1

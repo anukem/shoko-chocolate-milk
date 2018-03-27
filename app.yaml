@@ -8,16 +8,16 @@
 # limitations under the License.
 
 runtime: python
-api_version: 1
-threadsafe: yes
+env: flex 
+entrypoint: gunicorn -b :$PORT code.main:app
 
 runtime_config:
   python_version: 3
 
 # Handlers define how to route requests to your application.
-handlers:
-- url: .*  # This regex directs all routes to main.app
-  script: code.main.app
+#handlers:
+#- url: .*  # This regex directs all routes to main.app
+#  script: code.main.app
 
 # temporary workaround around gcloud issue
 skip_files:
@@ -28,7 +28,3 @@ env_variables:
     CLOUDSQL_CONNECTION_NAME: shoko-w4156:us-east1:library
     CLOUDSQL_USER: root
 
-#required for Cloud SQL
-libraries:
-- name: MySQLdb
-  version: "latest"
