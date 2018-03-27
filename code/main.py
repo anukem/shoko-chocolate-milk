@@ -3,7 +3,10 @@
 
 from flask import Flask
 from flask import render_template
-from flask import request
+from flask import request 
+
+
+
 
 app = Flask(__name__)
 
@@ -24,18 +27,28 @@ def index():
     #return render_template("index.html")
 
 #placeholder function
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST'])
 def login():
 	error = None
 	if request.method == "POST":
 		if is_valid_login( request.form(['username']), request.form(["password"])):
-			#login_the_user( request.form(["username"]))
-			error
+			login_the_user( request.form(["username"]))
+
 		else:
 			error = "invalid username/password"
 	
 	return render_template("login.html",error=error)
 
+#def login_the_user(username):
+	#connect to database and add user
+
+@app.route('/machine_schedule')
+def machine_schedule():
+	return render_template("machineDayschedule.html")
+
+@app.route('/overall_schedule')
+def overall_schedule():
+	return render_template("overallDaySchedule.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
