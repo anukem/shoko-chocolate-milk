@@ -1,19 +1,23 @@
 # base class for accessing Users table
-from models import Base
+from .models import Base_Model
+import sys
 
-class User(Base):
-	def __init__(self,usename,email,password):
-		Base.__init__()
+class User(Base_Model):
+	def __init__(self,username,email,password):
+		Base_Model.__init__(self)
 
 		self.username = username
 		self.email = email
 		self.password = password
-		self.cur = conn.cursor()
+		self.db_connect()
+		self.cur = self.conn.cursor()
 
-	def addUser(username):
+	def addUser(self,username):
 		err = 1
+		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
+
 		try:
-			cur.execute("INSERT INTO users VALUES " + self.name + ", "+ self.email + "," + self.password)
+			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
 		except:
 			print("could not insert into db")
 			err = 0
