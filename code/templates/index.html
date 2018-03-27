@@ -3,13 +3,13 @@
 <html>
     <head>
       <title> SHOKO | Landing - Sign In - Sign Up </title>
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='landingStyle.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/landingStyle.css') }}">
     </head>
 
     <body>
     <center>
   		<div class="logo">
-      		<img src="{{ url_for('static/pics>', filename='logo.png') }}">
+      		<img src="{{ url_for('static', filename='pics/logo.png') }}">
     	</div>
 			<button class="mainButtons" onclick="document.getElementById('id02').style.display='block'" >Log in</button>
    		<button class="mainButtons" onclick="document.getElementById('id01').style.display='block'" >Sign Up</button> <!-- style="width:auto;" -->
@@ -18,7 +18,7 @@
 		<div id="id01" class="modal1">
 		  <span onclick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">×</span>
 		  <form class="modal1-content animate" action="action_page.php" method:"post">
-		  	<script type="text/javascript" src="{{ url_for('static/js', filename='landingScript.js') }}"></script>
+		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container1">
 		      <label><b>UNI</b></label>
 		      <input type="text" placeholder="Enter UNI.." name="uni" required>
@@ -42,7 +42,7 @@
 		<div id="id02" class="modal">
 		  <span onclick="document.getElementById('id02').style.display='none'" class="close1" title="Close Modal">&times;</span>
 		  <form class="modal-content animate" action="action_page.php" method:"post">
-		  	<script type="text/javascript" src="{{ url_for('static/js', filename='landingScript.js') }}"></script>
+		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container">
 		      <label><b>UNI</b></label>
 		      <input type="text" name="uni" placeholder="Enter UNI.." required>
