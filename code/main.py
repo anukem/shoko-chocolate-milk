@@ -39,7 +39,7 @@ def login():
 	
 	return render_template("login.html",error=error)
 
-def login_the_user(username):
+#def login_the_user(username):
 	#connect to database and add user
 
 @app.route('/machine_schedule')
