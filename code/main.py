@@ -5,8 +5,9 @@ from flask import Flask
 from flask import render_template
 from flask import request 
 
+import sys
 
-
+from models.users import User
 
 app = Flask(__name__)
 
@@ -31,16 +32,24 @@ def index():
 def login():
 	error = None
 	if request.method == "POST":
-		if is_valid_login( request.form(['username']), request.form(["password"])):
-			login_the_user( request.form(["username"]))
+		signup_the_user( request.form["uni"],request.form["psw"])
 
-		else:
-			error = "invalid username/password"
+		#else:
+		#	error = "invalid username/password"
 	
-	return render_template("login.html",error=error)
+	return render_template("machineDayschedule.html",error=error)
 
-#def login_the_user(username):
-	#connect to database and add user
+def signup_the_user(username,password):
+	
+	user = User(username,password,"test")
+	user.db_connect()
+
+	res = user.addUser(username)
+
+	user.db_close()
+
+	return res
+
 
 @app.route('/machine_schedule')
 def machine_schedule():

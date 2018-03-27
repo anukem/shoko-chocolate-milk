@@ -17,7 +17,7 @@
 
 		<div id="id01" class="modal1">
 		  <span onclick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">×</span>
-		  <form class="modal1-content animate" action="action_page.php" method:"post">
+		  <form class="modal1-content animate" action="{{ url_for('login') }}" method="post">
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container1">
 		      <label><b>UNI</b></label>
@@ -41,7 +41,7 @@
 
 		<div id="id02" class="modal">
 		  <span onclick="document.getElementById('id02').style.display='none'" class="close1" title="Close Modal">&times;</span>
-		  <form class="modal-content animate" action="action_page.php" method:"post">
+		  <form class="modal-content animate" action="{{ url_for('login') }}" method=post>
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container">
 		      <label><b>UNI</b></label>
