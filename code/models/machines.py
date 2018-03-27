@@ -1,0 +1,1 @@
+ # base class for accessing machines table 
