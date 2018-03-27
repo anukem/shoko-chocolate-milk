@@ -1,6 +1,6 @@
 import os
 import unittest
-import sqlalchemy 
+import sqlalchemy
 
 
 class TestDB(unittest.TestCase):
