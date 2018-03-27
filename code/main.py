@@ -43,11 +43,11 @@ def login():
 	#connect to database and add user
 
 @app.route('/machine_schedule')
-def schedule():
+def machine_schedule():
 	return render_template("machineDayschedule.html")
 
 @app.route('/overall_schedule')
-def schedule():
+def overall_schedule():
 	return render_template("overallDaySchedule.html")
 
 if __name__ == '__main__':
