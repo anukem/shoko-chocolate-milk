@@ -1,5 +1,5 @@
 # base class for accessing Users table
-from baseModel import Base_Model
+from .baseModel import Base_Model
 
 import sys
 

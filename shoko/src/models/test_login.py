@@ -9,6 +9,7 @@ class MyTestCase(unittest.TestCase):
     def test_connection(self):
 
         try:
+            #if user is found return true
         	res = user.findUser()
         	self.assertTrue()
         except:

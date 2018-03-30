@@ -1,11 +1,11 @@
 # base class for accessing machines table 
-from models import Base_Model
+from baseModel import Base_Model
 
 class Machine(Base_Model):
 	"""docstring for Machine"""
 	def __init__(self):
 		super(Machine, self).__init__()
-		
+		schedule = Schedule()
 
 	def get_all_machines(self):
 		machines = []

@@ -22,23 +22,16 @@ def index():
 def login():
 	error = None
 	if request.method == "POST":
-		signup_the_user( request.form["uni"],request.form["psw"])
+		user = User(request.form["uni"],request.form["psw"],"test")
+		res = user.addUser()
+
+		user.db_close()
 
 		#else:
 		#	error = "invalid username/password"
 	
 	return render_template("machineDayschedule.html",error=error)
 
-def signup_the_user(username,password):
-	
-	user = User(username,password,"test")
-	#user.db_connect()
-
-	res = user.addUser()
-
-	user.db_close()
-
-	return res
 
 
 @app.route('/machine_schedule')
