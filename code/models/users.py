@@ -1,5 +1,5 @@
 # base class for accessing Users table
-from models import Base
+from model import Base
 
 class User(Base):
 	def __init__(self,usename,email,password):

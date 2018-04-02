@@ -1,5 +1,5 @@
 # base class for accessing machines table 
-from models import Base_Model
+from model import Base_Model
 
 class Machine(Base_Model):
 	"""docstring for Machine"""
@@ -18,7 +18,3 @@ class Machine(Base_Model):
 			machines.append(machine)
 
 		return machines 
-
-# test the class 
-first_machine = Machine()
-print(Machine().get_all_machines())
