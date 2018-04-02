@@ -17,7 +17,7 @@ class MachineTest(unittest.TestCase):
 		name = "machine_test"
 		typ = "Bicycle"
 		location = "5th Floor, Test Room"
-		
+				
 		# check to see the insert passed
 		cursor.execute("insert into machines (name, type, location) values (%s,%s,%s)", (name, typ, location))
 		assert(cursor.statusmessage == "INSERT 0 1")
