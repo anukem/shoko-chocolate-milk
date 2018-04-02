@@ -1,1 +1,0 @@
-# base class for accessing schedules table 
