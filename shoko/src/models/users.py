@@ -1,5 +1,5 @@
 # base class for accessing Users table
-from baseModel import Base_Model
+from .baseModel import Base_Model
 import sys
 
 class User(Base_Model):
@@ -40,13 +40,14 @@ class User(Base_Model):
 			cur.execute("SELECT * FROM users WHERE username=" + username)
 		except:
 			print("could not execute statement")
+			err = 0
 
 		records = cur.fetchall()
 
 		if(len(records >= 1)):
-			return 1
+			return True
 		else:
-			return 0
+			return False
 		
 
 
