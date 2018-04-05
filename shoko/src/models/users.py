@@ -1,9 +1,9 @@
 # base class for accessing Users table
-from .baseModel import Base_Model
-
+from baseModel import Base_Model
 import sys
 
 class User(Base_Model):
+
 	def __init__(self,username,email,password):
 		Base_Model.__init__(self)
 		self.username = username
@@ -43,7 +43,11 @@ class User(Base_Model):
 
 		records = cur.fetchall()
 
-		return records
+		if(len(records >= 1)):
+			return 1
+		else:
+			return 0
+		
 
 
 
