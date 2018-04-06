@@ -4,16 +4,17 @@ from shoko.src.models.users import User
 
 class MyTestCase(unittest.TestCase):
     
-    user = User("test","test","test")
+    def setUp(self):
+        user = User("test","test","test")
 
     def test_connection(self):
 
         try:
             #if user is found return true
         	res = user.findUser()
-        	self.assertTrue()
+        	self.assertTrue(res)
         except:
-        	self.assertFalse()
+        	print("error")
         
 
     def tearDown(self):

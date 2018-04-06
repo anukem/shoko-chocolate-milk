@@ -6,6 +6,7 @@ from flask import request
 import sys
 
 from src.models.users import User
+from src.models.machines import Machine
 
 
 app = Flask(__name__)
@@ -32,10 +33,24 @@ def login():
 	
 	return render_template("machineDayschedule.html",error=error)
 
+def signin():
+	error = None
+	if request.method == "POST":
+		user = User(request.form["uni"],request.form["psw"],"test")
+		res = user.findUser()
 
+		user.db_close()
 
+		if res == 1:
+			return render_template("machineDayschedule.html",error=error)
+		else:
+			error = "invalid username/password"
+	
+	
 @app.route('/machine_schedule')
 def machine_schedule():
+	#machine = Machine()
+	#machine.get_all_machines()
 	return render_template("machineDayschedule.html")
 
 @app.route('/overall_schedule')
