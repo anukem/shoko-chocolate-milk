@@ -17,4 +17,4 @@ class Machine(Base_Model):
 		for machine in cur.fetchall():
 			machines.append(machine)
 
-		return machines 
+	return machines 

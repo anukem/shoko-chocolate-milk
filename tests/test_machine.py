@@ -3,7 +3,7 @@ import os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'code')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'code/models')))
 import unittest
-from models import machines as mac 
+import machines as mac 
 
 class MachineTest(unittest.TestCase):
 	
