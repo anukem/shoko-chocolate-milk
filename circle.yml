@@ -36,7 +36,8 @@ dependencies:
 test:
   override:
     # run local unit tests
-    - python shoko/src/models/test_add_user.py
+    #- python shoko/src/models/test_machine.py
+    - echo "test"
 
 deployment:
     staging:

@@ -1,20 +1,21 @@
 import unittest
-from .users import User
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
+
+from users import User
 
 class MyTestCase(unittest.TestCase):
-    
-    user = User("test","test","test")
+    #user = 0
+    def setUp(self):
+        self.user = User("test","test","test")
 
     def test_connection(self):
-        res = user.addUser(username)
-
-        try:
-        	user.addUser()
-        	self.assertTrue()
-        except:
-        	self.assertFalse()
-        
-        user.db_close()
+        res = self.user.addUser()
+        self.assertTrue(res)
+      
+    def tearDown(self):
+        self.user.db_close()
 	
 
 if __name__ == '__main__':

@@ -1,6 +1,9 @@
 # base class for accessing machines table 
-from .baseModel import Base_Model
-from .schedules import Schedule
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
+from baseModel import Base_Model
+from schedules import Schedule
 
 class Machine(Base_Model):
 	"""docstring for Machine"""

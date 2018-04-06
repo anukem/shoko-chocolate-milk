@@ -1,5 +1,9 @@
 # base class for accessing Users table
-from .baseModel import Base_Model
+import sys
+import os
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, '/shoko/src/models')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
+from baseModel import Base_Model
 import sys
 
 class User(Base_Model):
@@ -13,14 +17,14 @@ class User(Base_Model):
 		self.cur = self.conn.cursor()
 
 	def addUser(self):
-		err = 1
-		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("'o)"))
+		err = True
+		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
 
 		try:
 			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
 		except:
 			print("could not insert into db")
-			err = 0
+			err = False
 
 		return err
 

@@ -1,6 +1,6 @@
 # base class for accessing schedules table 
 
-from .baseModel import Base_Model
+from baseModel import Base_Model
 
 class Schedule(Base_Model):
 	def __init__(self):

@@ -1,6 +1,10 @@
 import unittest
-from .schedules import Schedule
-from .machines import Machine
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
+
+from schedules import Schedule
+from machines import Machine
 
 class MyTestCase(unittest.TestCase):
     
