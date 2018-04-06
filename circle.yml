@@ -37,7 +37,7 @@ test:
   override:
     # run local unit tests
     #- python shoko/src/models/test_machine.py
-    -echo "test"
+    - echo "test"
 
 deployment:
     staging:
