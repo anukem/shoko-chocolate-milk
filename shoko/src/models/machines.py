@@ -33,9 +33,3 @@ class Machine(Base_Model):
 		cur.execute("INSERT INTO machines VALUES ( DEFAULT, 'Yellow Machine', 'Elliptical', '712 Schermerhorn');")
 		print(cur.statusmessage)
 		conn.commit()
-
-
-machine = Machine(Base_Model())
-
-machine.create_machine()
-
