@@ -26,11 +26,15 @@ def login():
 		user = User(request.form["uni"],request.form["psw"],"test")
 		res = user.addUser()
 
+		if res == 1:
+			return render_template("machineDayschedule.html",error=error)
+		else:
+			error = "invalid username/password"
+
 		user.db_close()
 
 	mg = Machine(bm.Base_Model())
 	machines = mg.get_all_machines()
-	print(machines)
 	
 	return render_template("machineDayschedule.html",error=error, machines=machines)
 
