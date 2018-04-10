@@ -9,8 +9,25 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/daySchedule.css') }}">
 </head>
 <body>
+
+  <style type="text/css">
+    
+    td, tr, th {
+      text-align: center;
+    }
+  </style>
 ​
-<div class="container">
+  <table style="width:100%">
+    <tr>
+      <th>ID</th> <th>Name</th> <th>Type</th> <th>Location</th>
+    </tr>
+    {% for machine in machines %}
+      <tr>
+        <td> {{machine[0]}} </td> <td> {{machine[1]}} </td> <td> {{machine[2]}} </td> <td> {{machine[3]}} </td>
+      </tr>
+    {% endfor %}
+  </table>
+<!-- <div class="container">
   <h2>Specific Machine Day Schedule - Machine 41 (Bicycle, 1st Floor)</h2>
   <p></p>
   <div class="table-responsive">
@@ -149,6 +166,6 @@
   </div>
 </div>
 ​
-</body>
+ --></body>
 </html>
 ​

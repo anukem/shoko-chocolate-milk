@@ -14,17 +14,28 @@ class Machine(Base_Model):
 		self.cur = self.conn.cursor()
 		schedule = Schedule()
 	#@staticmethod
+	
 	def get_all_machines(self):
 		machines = []
+		conn = self.db_connect()
 
+		cur = conn.cursor()
 		cur.execute("select * from machines")
 
 		for machine in cur.fetchall():
 			machines.append(machine)
 
 		return machines 
-	def get_a_machine(self,name):
 
-		cur.execute("select * from machines where name is " + name)
+	def create_machine(self):
+		conn = self.db_connect()
+		cur = conn.cursor()
+		cur.execute("INSERT INTO machines VALUES ( DEFAULT, 'Yellow Machine', 'Elliptical', '712 Schermerhorn');")
+		print(cur.statusmessage)
+		conn.commit()
 
-		return cur.fetchall()[0]
+
+machine = Machine(Base_Model())
+
+machine.create_machine()
+
