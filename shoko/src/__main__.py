@@ -5,9 +5,9 @@ from flask import request
 
 import sys
 
-from src.models.users import User
-from src.models.machines import Machine
-from src.models import Base_Model as bm 
+from models.users import User
+from models.machines import Machine
+from models import Base_Model as bm 
 
 app = Flask(__name__)
 
@@ -24,13 +24,14 @@ def login():
 	error = None
 	if request.method == "POST":
 		user = User(request.form["uni"],request.form["psw"],"test")
-		res = user.addUser()
 
+		res = user.findUser()
 		user.db_close()
+		if res == True:
+			return render_template("machineDayschedule.html",error=error, machines=machines)
 
-	mg = Machine(bm.Base_Model())
-	machines = mg.get_all_machines()
-	print(machines)
+		
+
 	
 	return render_template("machineDayschedule.html",error=error, machines=machines)
 
