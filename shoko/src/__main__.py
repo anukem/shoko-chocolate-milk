@@ -4,6 +4,7 @@ from flask import render_template
 from flask import request 
 
 import sys
+import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './src')))
 from src.models.users import User
 from src.models.machines import Machine
