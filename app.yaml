@@ -9,7 +9,7 @@
 
 runtime: python
 env: flex 
-entrypoint: python shoko
+entrypoint: gunicorn -b :$PORT shoko.src.__main__
 
 runtime_config:
   python_version: 3
