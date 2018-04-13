@@ -4,10 +4,10 @@ from flask import render_template
 from flask import request 
 
 import sys
-
-from models.users import User
-from models.machines import Machine
-from models import Base_Model as bm 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './src')))
+from src.models.users import User
+from src.models.machines import Machine
+from src.models import Base_Model as bm 
 
 app = Flask(__name__)
 
