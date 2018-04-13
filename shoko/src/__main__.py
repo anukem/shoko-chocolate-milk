@@ -5,9 +5,9 @@ from flask import request
 
 import sys
 
-from src.models.users import User
-from src.models.machines import Machine
-from src.models import Base_Model as bm 
+from models.users import User
+from models.machines import Machine
+from models import Base_Model as bm 
 
 app = Flask(__name__)
 
