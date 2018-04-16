@@ -4,7 +4,8 @@ from flask import render_template
 from flask import request 
 
 import sys
-
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'models'))
 from models.users import User
 from models.machines import Machine
 from models import Base_Model as bm 
@@ -63,4 +64,4 @@ def overall_schedule():
 	return render_template("overallDaySchedule.html")
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
