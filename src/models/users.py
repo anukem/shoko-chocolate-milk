@@ -40,23 +40,14 @@ class User(Base_Model):
 
 	def findUser(self):
 		err = 1
-		print("SELECT * FROM users WHERE name='%s", self.username)
 		try:
-			self.cur.execute("SELECT * FROM users WHERE name='%s'",self.username)
-		except:
-			print("could not execute search statement")
-			return False
-		try:
+			self.cur.execute("SELECT * FROM users WHERE name='{self.username}'")
 			records = self.cur.fetchall()
-			if(len(records >= 1)):
+			if(len(records) >= 1):
 				return True
 			else:
 				return False
-		except:
-			err = "no records to fetch"
-
-		return False
+		except Exception as e :
+			print(e)
+			return False
 		
-
-
-
