@@ -18,8 +18,8 @@ def index():
     #return render_template("index.html")
 
 #placeholder function
-@app.route('/login', methods=['POST'])
-def signup():
+@app.route('/sign_up', methods=['POST'])
+def sign_up():
 	error = None
 	if request.method == "POST":
 		user = User(request.form["uni"],request.form["email"], request.form["psw"]	)
@@ -37,7 +37,8 @@ def signup():
 	
 	return render_template("machineDayschedule.html",error=error, machines=machines)
 
-def signin():
+@app.route("/login", methods=["POST"])
+def login():
 	error = None
 	if request.method == "POST":
 		user = User(request.form["uni"],request.form["email"],request.form["psw"])
@@ -49,7 +50,7 @@ def signin():
 			return render_template("machineDayschedule.html",error=error)
 		else:
 			error = "invalid username/password"
-	
+	return render_template("machineDayschedule.html",error=error)
 	
 @app.route('/machine_schedule')
 def machine_schedule():
