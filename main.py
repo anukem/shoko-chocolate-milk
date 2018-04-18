@@ -1,4 +1,3 @@
-
 from flask import Flask
 from flask import render_template
 from flask import request 
@@ -63,5 +62,4 @@ def overall_schedule():
 	return render_template("overallDaySchedule.html")
 
 if __name__ == '__main__':
-	print(21)
-    app.run(debug=True)
+	app.run(debug=True)
