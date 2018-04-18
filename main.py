@@ -40,7 +40,7 @@ def login():
 def signin():
 	error = None
 	if request.method == "POST":
-		user = User(request.form["uni"],request.form["psw"],"test")
+		user = User(request.form["uni"],request.form["psw"],request.form["test"])
 		res = user.findUser()
 
 		user.db_close()
