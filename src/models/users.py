@@ -19,9 +19,8 @@ class User(Base_Model):
 	def addUser(self):
 		err = True
 		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
-		print("i made it here")
 		try:
-			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ ("FAKE@EMAIL.COM") + ("','") + (self.password)+("')"))
+			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("');"))
 			self.conn.commit()
 		except:
 			print("could not insert into db")
@@ -32,28 +31,23 @@ class User(Base_Model):
 	def deleteUser(username):
 		err = 1
 		try:
-			cur.execute("DELETE FROM users WHERE username="+username)
+			self.cur.execute("DELETE FROM users WHERE name="+self.username)
 		except:
 			print("could not execute statement")
 			err = 0
 			
 		return err
 
-	def findUser():
+	def findUser(self):
 		err = 1
 		try:
-			cur.execute("SELECT * FROM users WHERE username=" + username)
-		except:
-			print("could not execute statement")
-			err = 0
-
-		records = cur.fetchall()
-
-		if(len(records >= 1)):
-			return True
-		else:
+			self.cur.execute("SELECT * FROM users WHERE name='{self.username}'")
+			records = self.cur.fetchall()
+			if(len(records) >= 1):
+				return True
+			else:
+				return False
+		except Exception as e :
+			print(e)
 			return False
 		
-
-
-

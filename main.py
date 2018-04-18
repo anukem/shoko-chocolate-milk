@@ -14,14 +14,12 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-    #return render_template("index.html")
-
 #placeholder function
-@app.route('/LoggedInUsers', methods=['POST'])
-def login():
+@app.route('/sign_up', methods=['POST'])
+def sign_up():
 	error = None
 	if request.method == "POST":
-		user = User(request.form["uni"],"test", request.form["psw"]	)
+		user = User(request.form["uni"],request.form["email"], request.form["psw"]	)
 		res = user.addUser()
 
 		if res == 1:
@@ -36,10 +34,11 @@ def login():
 
 	return render_template("LoggedInUsers.html",error=error, machines=machines)
 
-def signin():
+@app.route("/login", methods=["POST"])
+def login():
 	error = None
 	if request.method == "POST":
-		user = User(request.form["uni"],request.form["psw"],"test")
+		user = User(request.form["uni"],request.form["email"],request.form["psw"])
 		res = user.findUser()
 
 		user.db_close()
@@ -48,8 +47,8 @@ def signin():
 			return render_template("LoggedInUsers.html",error=error)
 		else:
 			error = "invalid username/password"
-
-
+	return render_template("machineDayschedule.html",error=error)
+	
 @app.route('/machine_schedule')
 def machine_schedule():
 	#machine = Machine()
