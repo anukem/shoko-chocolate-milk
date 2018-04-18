@@ -63,4 +63,5 @@ def overall_schedule():
 	return render_template("overallDaySchedule.html")
 
 if __name__ == '__main__':
+	print(21)
     app.run(debug=True)

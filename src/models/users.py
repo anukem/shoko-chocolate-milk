@@ -19,7 +19,7 @@ class User(Base_Model):
 	def addUser(self):
 		err = True
 		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
-
+		print("made it here")
 		try:
 			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
 		except:
