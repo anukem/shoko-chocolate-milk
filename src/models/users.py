@@ -21,7 +21,7 @@ class User(Base_Model):
 		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
 
 		try:
-			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
+			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ ("FAKE@EMAIL.COM") + ("','") + (self.password)+("')"))
 			self.conn.commit()
 		except:
 			print("could not insert into db")

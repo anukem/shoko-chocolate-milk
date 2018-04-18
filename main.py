@@ -22,7 +22,7 @@ def index():
 def login():
 	error = None
 	if request.method == "POST":
-		user = User(request.form["uni"],request.form["psw"],"test")
+		user = User(request.form["uni"],"test", request.form["psw"])
 		res = user.addUser()
 
 		if res == 1:
