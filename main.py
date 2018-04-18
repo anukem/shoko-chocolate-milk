@@ -19,10 +19,10 @@ def index():
 
 #placeholder function
 @app.route('/login', methods=['POST'])
-def login():
+def signup():
 	error = None
 	if request.method == "POST":
-		user = User(request.form["uni"],"test", request.form["psw"]	)
+		user = User(request.form["uni"],request.form["email"], request.form["psw"]	)
 		res = user.addUser()
 
 		if res == 1:
@@ -40,7 +40,7 @@ def login():
 def signin():
 	error = None
 	if request.method == "POST":
-		user = User(request.form["uni"],request.form["psw"],request.form["test"])
+		user = User(request.form["uni"],request.form["email"],request.form["psw"])
 		res = user.findUser()
 
 		user.db_close()
