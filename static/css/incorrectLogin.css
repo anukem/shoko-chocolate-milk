@@ -1,0 +1,25 @@
+
+body {
+    background-color: #0e0e3f;
+    /* color: white; */
+
+}
+
+.centralDiv {
+  background-color: white;
+  width:800px;
+  margin:0 auto;
+}
+
+.logo {
+  width:800px;
+  margin:0 auto;
+  /* height:30px;
+  width:300px;
+  margin: 0 auto;
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  text-align:center; */
+}

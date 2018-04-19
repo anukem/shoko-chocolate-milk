@@ -48,7 +48,7 @@ def login():
 		else:
 			error = "invalid username/password"
 	return render_template("machineDayschedule.html",error=error)
-	
+
 @app.route('/machine_schedule')
 def machine_schedule():
 	#machine = Machine()
@@ -62,6 +62,14 @@ def overall_schedule():
 @app.route('/LoggedInUsers')
 def LoggedInUsers():
     return render_template("LoggedInUsers.html")
+
+@app.route('/incorrectLogin')
+def incorrectLogin():
+    return render_template("incorrectLogin.html")
+
+@app.route('/machineDayschedule')
+def machineDayschedule():
+    return render_template("machineDayschedule.html")
 
 if __name__ == '__main__':
 	app.run(debug=True)
