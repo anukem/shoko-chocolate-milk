@@ -2,7 +2,8 @@
 
 <html>
     <head>
-      <title> SHOKO | Landing - Sign In - Sign Up </title>
+      <title> SHOKO | Landing - Sign In - Sign Up </title>      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/landingStyle.css') }}">
+      <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navBar.css') }}"> -->
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/landingStyle.css') }}">
     </head>
 
@@ -63,7 +64,7 @@
 		    </div>
 		  </form>
 		</div>
-
+    {% extends "navBar.html" %}
     </body>
 
 </html>

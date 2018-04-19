@@ -1,0 +1,45 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* height: 13%; */
+}
+
+li {
+    float: left;
+}
+
+li a, #shoko {
+    display: block;
+    color: navy;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+li a:hover:not(.active) {
+    background-color: #C4D8E2;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+#shoko {
+  float: right;
+}
+
+.social {
+  text-align: center;
+  padding: 14px;
+}
+#midLogo {
+  padding-right: 14px;
+  padding-left: 14px;
+}

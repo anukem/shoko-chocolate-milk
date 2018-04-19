@@ -1,0 +1,70 @@
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* height: 13%; */
+}
+
+li {
+    float: left;
+}
+
+.ref, #shoko {
+    display: block;
+    color: navy;
+    /* text-align: center; */
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+li a:hover:not(.active) {
+    background-color: #C4D8E2;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+#shoko {
+  float: right;
+}
+
+#social {
+  position: absolute;
+  left: 44%;
+  top: 88%;
+  width: 100%;
+  /* text-align: center;
+  padding: 14px;
+  bottom: 40%; */
+}
+#midLogo {
+  padding-right: 14px;
+  padding-left: 14px;
+}
+
+</style>
+
+<div id="social">
+  <a href="https://www.facebook.com/shahar.kaminsky">
+      <img title="Facebook" alt="Facebook" src="{{ url_for('static', filename='pics/facebook.png') }}" width="45" height="45"/></a>
+  <a id="midLogo" href="https://www.linkedin.com/in/shahar-kaminsky-865838111?trk=nav_responsive_tab_profile" class="socButton">
+      <img title="LinkedIn" alt="LinkedIn" src="{{ url_for('static', filename='pics/linkedin.png') }}" width="45" height="45"/></a>
+  <a href="http://politicalhumor.about.com/od/Donald-Trump/ig/Donald-Trump/">
+      <img title="Twitter" alt="Twitter" src="{{ url_for('static', filename='pics/twitter.png') }}" width="45" height="45"/></a>
+</div>
+
+<ul>
+  <li><a class="ref" href="\">Login</a></li>
+  <li><a class="ref" href="\machineDayschedule">Schedule</a></li>
+  <li><a class="ref" href="\about">About</a></li>
+  <li><a class="ref" href="#home">Contact</a></li>
+  <li id="shoko">SHOKO</li>
+</ul>

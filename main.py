@@ -61,7 +61,19 @@ def overall_schedule():
 
 @app.route('/LoggedInUsers')
 def LoggedInUsers():
-    return render_template("LoggedInUsers.html")
+    times = [
+        "10:00 am - 10:30 am",
+        "10:30 am - 11:00 am",
+        "11:30 am - 12:00 pm",
+        "12:00 pm - 12:30 pm",
+        "12:30 pm - 01:00 pm",
+        "01:00 pm - 01:30 pm",
+        "01:30 pm - 02:00 pm",
+        "02:00 pm - 02:30 pm",
+        "02:30 pm - 03:00 pm",
+        "03:00 pm - 03:30 pm"
+    ]
+    return render_template("LoggedInUsers.html", times=times)
 
 @app.route('/incorrectLogin')
 def incorrectLogin():
@@ -70,6 +82,14 @@ def incorrectLogin():
 @app.route('/machineDayschedule')
 def machineDayschedule():
     return render_template("machineDayschedule.html")
+
+@app.route('/scheduleWorkoutSuccess')
+def scheduleWorkoutSuccess():
+    # REPLACE THE LINE UNDER WITH ACTUAL DETAILS
+    machine = {'type' : 'Treadmill', 'ID' : 't11', 'Time:' : '02:00 pm - 02:30 pm'}
+    return render_template("scheduleWorkoutSuccess.html", machine=machine)
+
+
 
 if __name__ == '__main__':
 	app.run(debug=True)
