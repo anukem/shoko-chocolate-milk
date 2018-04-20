@@ -7,21 +7,20 @@
     </head>
 
     <body>
-    	<center>
-        <div class="logo">
-          <img src="{{ url_for('static', filename='pics/logo.png') }}">
-        </div>
-        <button class="mainButtons" onclick="document.getElementById('id02').style.display='block'" >Cancel Workout</button>
-   		  <button class="mainButtons" onclick="document.getElementById('id01').style.display='block'" >Schedule Workout</button>
-      </center>
-      {% extends "navBar.html" %}
-      <!-- Schedule a Workout -->
-      <div id="id01" class="modal1">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">×</span>
-        <form class="modal1-content animate" action="action_page.php" method:"post">
+    <center>
+  		<div class="logo">
+      		<img src="{{ url_for('static', filename='pics/logo.png') }}">
+    	</div>
+			<button class="mainButtons" onclick="document.getElementById('id02').style.display='block'" >Cancel Workout</button>
+   		<button class="mainButtons" onclick="document.getElementById('id01').style.display='block'" >Schedule Workout</button>
+		</center>
+
+		<div id="id01" class="modal1">
+		  <span onclick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">×</span>
+		  <form class="modal1-content animate" action="{{ url_for('login') }}" method="post">
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container1">
-		      <label><b>Choose Machine Type:</b></label><br>
+          <label><b>Choose Machine Type:</b></label><br>
           <label class="radio-inline">
             <input type="radio" name="optradio">Treadmill
           </label>
@@ -41,18 +40,17 @@
             {% endfor %}
           </select>
           <br><br>
-
-		      <div class="clearfix1">
-		        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn1">Cancel</button>
-		        <button type="submit" class="signupbtn1">Schedule My Workout!</button>
-		      </div>
+          <div class="clearfix1">
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn1">Cancel</button>
+            <button type="submit" class="signupbtn1">Schedule My Workout!</button>
+          </div>
 		    </div>
 		  </form>
 		</div>
 
-		<div id="id02" class="modal1">
+		<div id="id02" class="modal">
 		  <span onclick="document.getElementById('id02').style.display='none'" class="close1" title="Close Modal">&times;</span>
-		  <form class="modal-content animate" action="action_page.php" method:"post">
+		  <form class="modal-content animate" action="{{ url_for('login') }}" method=post>
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container">
           <label><b>Choose Machine Type:</b></label><br>
@@ -66,7 +64,6 @@
             <input type="radio" name="optradio">Ski
           </label>
           <br><br>
-
           <label for="sel1">Choose a Time:</label><br>
           <select class="form-control" id="sel1">
             {% for time in times %}
@@ -74,14 +71,14 @@
             {% endfor %}
           </select>
           <br><br>
-
           <div class="clearfix1">
-		        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn1">Cancel</button>
-		        <button type="submit" class="signupbtn1">Cancel My Workout!</button>
-		      </div>
+            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn1">Cancel</button>
+            <button type="submit" class="signupbtn1">Cancel My Workout!</button>
+          </div>
+		    </div>
 		  </form>
 		</div>
-
+    {% extends "navBar.html" %}
     </body>
 
 </html>
