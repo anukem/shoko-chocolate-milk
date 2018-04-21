@@ -15,16 +15,17 @@ class User(Base_Model):
 		self.password = password
 		self.conn = self.db_connect()
 		self.cur = self.conn.cursor()
+		self.user_id = None
 
 	def addUser(self):
-		err = True
+		err = 1
 		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
 		try:
 			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("');"))
 			self.conn.commit()
-		except:
-			print("could not insert into db")
-			err = False
+		except Exception as e:
+			print(e)
+			err = 0
 
 		return err
 
@@ -50,4 +51,17 @@ class User(Base_Model):
 		except Exception as e :
 			print(e)
 			return False
+
+	def setUserID(self):
+		err = 1
+		try:
+			self.cur.execute("SELECT * FROM users WHERE name = '{self.username}'")
+			record = self.cur.fetchone()
+			#record[3] is the id column in the db
+			record[3] = self.user_id
+		except Exception as e:
+			print(e)
+
+
+
 		

@@ -1,14 +1,13 @@
 # base class for accessing schedules table 
 
-from baseModel import Base_Model
+from users import User
 
 class Schedule(Base_Model):
-	def __init__(self):
+	def __init__(self,machineid):
 		Base_Model.__init__(self)
 
 		self.conn = self.db_connect()
 		self.cur = self.conn.cursor()
-		self.userid = userid
 		self.machineid = machineid
 
 		#function to find out if a time slot for a certain machine is free or full
@@ -34,7 +33,7 @@ class Schedule(Base_Model):
 			try:
 				availbility = is_available(self)
 				if availability == True:
-					self.cur.execute("INSERT INTO schedules VALUES (" + ("'") + (self.userid) +("'") +(", '")+ (self.machineid) + ("',"))
+					self.cur.execute("INSERT INTO schedules VALUES (" + ("'") + (userid) +("'") +(", '")+ (machineid) + ("',"))
 					return print("Your machine is reserved")
 			except:
 				print("could no insert into db")
@@ -43,7 +42,7 @@ class Schedule(Base_Model):
 		def cancel_reservation(userid,machineid):
 			err = 1
 			try:
-				self.cur.execute(DELETE FROM schedules WHERE userid=+self.userid AND machineid=+self.machineid)
+				self.cur.execute("DELETE FROM schedules WHERE userid="+userid + "AND machineid="+machineid)
 			except:
 				print("could not execute statement")
 				err = 0
