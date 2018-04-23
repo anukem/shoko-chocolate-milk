@@ -32,7 +32,7 @@ class User(Base_Model):
 	def deleteUser(username):
 		err = 1
 		try:
-			self.cur.execute('DELETE FROM users WHERE name=\'%s\''%str(self.username))
+			self.cur.execute('DELETE FROM users WHERE name=\'%s\' and password=\'%s\''%str(self.username)%str(self.password))
 		except:
 			print("could not execute statement")
 			err = 0
@@ -42,7 +42,7 @@ class User(Base_Model):
 	def findUser(self):
 		try:
 			#print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
-			self.cur.execute('SELECT * FROM users WHERE name=\'%s\''%str(self.username))	
+			self.cur.execute('DELETE FROM users WHERE name=\'%s\' and password=\'%s\''%str(self.username)%str(self.password))	
 			records = self.cur.fetchall()
 			#print(records)
 			#print(len(records))

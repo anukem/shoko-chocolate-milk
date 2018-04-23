@@ -1,50 +1,77 @@
 # base class for accessing schedules table 
 
 from users import User
+from baseModel import Base_Model
 
-class Schedule():
-	def __init__(self,machineid):
+class Schedule(Base_Model):
+	def __init__(self,mid):
 		Base_Model.__init__(self)
 
 		self.conn = self.db_connect()
 		self.cur = self.conn.cursor()
-		self.mid = machineid
-		self.reserved_times = {"8:00":False,"8:30":False,"9:00":False,"10:00":False,"10:30":False,"11:00":False,"11:30":False,"12:00":False,"12:30":False,"13:00":False,"13:30":False,"14:00":False,"14:30":False,"15:00":False,"15:30":False,"16:00":False}
+		self.mid = mid
+		self.are_reserved = ["8:00","8:30","9:00","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00"]
 		#function to find out if a time slot for a certain machine is free or full
-		def is_available(self):
-			try:
-				available = self.cur.execute("SELECT * FROM schedules WHERE mid IS NULL")
-				records = cur.fetchall()
-				if(len(records) is 0):
-					return True
-				else:
-					return False
-				#TODO find correct sql query
-				#self.cur.execute("SELECT * FROM schedules WHERE time ="+str(time))
-			except Exception as e:
-				print(e)
-			
-		#def reserve_time_slot(self,time):
-		#	err = 1
-		#	self.cur.execute("INSERT INTO schedules VALUES (%s,%s,%s) ", (self.user_id,self.machineid,time))
-
-		def make_reservation(userid,machineid):
-			try:
-				availbility = self.is_available()
-				if availability == True:
-					self.cur.execute("INSERT INTO schedules VALUES (" + ("'") + (self.userid) +("'") +(", '")+ (self.mid) + ("',"))
-					return print("Your machine is reserved")
-			except:
-				print("could no insert into db")
-				err = 0 
+	def is_available(self):
+		try:
+			available = self.cur.execute("SELECT * FROM schedules")
+			records = cur.fetchall()
+			if(len(records) is 0):
+				return True
+			else:
+				return False
+			#TODO find correct sql query
+			#self.cur.execute("SELECT * FROM schedules WHERE time ="+str(time))
+		except Exception as e:
+			print(e)
 		
-		def cancel_reservation(userid,machineid):
-			err = 1
-			try:
-				self.cur.execute('DELETE FROM schedules WHERE userid=\'%s\' AND machineid=\'%s\''%self.userid%self.mid)
-			except Exception as e:
-				print(e)
-				err = 0
-				
-			return err
+	#def reserve_time_slot(self,time):
+	#	err = 1
+	#	self.cur.execute("INSERT INTO schedules VALUES (%s,%s,%s) ", (self.user_id,self.machineid,time))
+
+	def make_reservation(self,userid):
+		try:
+			availbility = self.is_available()
+			if availability == True:
+				self.cur.execute("INSERT INTO schedules VALUES (" + ("'") + (userid) +("'") +(", '")+ (self.mid) + ("',"))
+				return print("Your machine is reserved")
+		except:
+			print("could no insert into db")
+			err = 0 
+	
+	def cancel_reservation(self,userid):
+		err = 1
+		try:
+			self.cur.execute('DELETE FROM schedules WHERE userid=\'%s\' AND machineid=\'%s\''%userid%self.mid)
+		except Exception as e:
+			print(e)
+			err = 0
+			
+		return err
+	#returns dictionary of all possible times for a machine and whether they are available or not
+	def get_available_times(self):
+		try:
+			#get all reserved times
+			self.cur.execute("SELECT * FROM schedules WHERE mid =\'%s\'"%self.mid)
+			records = self.cur.fetchall()
+
+			temp = self.are_reserved
+			for record in records:
+				#record[2] corresponds to the time
+				time = record[2]
+				string = str(time.hour)
+				if(time.minute is 0):
+					string = string+":"+str(time.minute)+'0'
+				else:
+					string = string+":"+str(time.minute)
+
+				if string in temp:
+					temp.remove(string)
+
+			return temp
+		except Exception as e:
+			print(e)
+			return print(e)
+		return 1
+
 

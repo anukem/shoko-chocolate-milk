@@ -71,6 +71,10 @@ def overall_schedule():
 
 @app.route('/LoggedInUsers',methods=['GET','POST'])
 def LoggedInUsers():
+	mg = Machine(bm.Base_Model())
+
+	dicts = mg.get_machine_schedule_dictionaries()
+    
     tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
