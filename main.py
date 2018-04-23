@@ -26,10 +26,6 @@ def sign_up():
 		user = User(request.form["uni"],request.form["email"], request.form["psw"]	)
 		res = user.addUser()
 		print("added user")
-
-
-
-
 		if res is 1:
 			user.db_close()
 			mg = Machine(bm.Base_Model())
@@ -75,18 +71,35 @@ def overall_schedule():
 
 @app.route('/LoggedInUsers',methods=['GET','POST'])
 def LoggedInUsers():
-    times = [
-        "10:00 am - 10:30 am",
-        "10:30 am - 11:00 am",
-        "11:30 am - 12:00 pm",
-        "12:00 pm - 12:30 pm",
-        "12:30 pm - 01:00 pm",
-        "01:00 pm - 01:30 pm",
-        "01:30 pm - 02:00 pm",
-        "02:00 pm - 02:30 pm",
-        "02:30 pm - 03:00 pm",
-        "03:00 pm - 03:30 pm"
-    ]
+        tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
+        tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
+        tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
+        st11times = ["08:00 - 08:30", "14:30 - 15:00"]
+        st12times = ["08:00 - 08:30", "14:30 - 15:00"]
+        st13times = ["08:00 - 08:30", "14:30 - 15:00"]
+        sk11times = ["08:00 - 08:30", "14:30 - 15:00"]
+        sk12times = ["08:00 - 08:30", "14:30 - 15:00"]
+        sk13times = ["08:00 - 08:30", "14:30 - 15:00"]
+    treadmills = {
+        "tr11" = tr11times,
+        "tr12" = tr12times,
+        "tr13" = tr13times
+    }
+    striders = {
+        "st11" = st11times,
+        "st12" = st12times,
+        "st13" = st13times
+    }
+    skis = {
+        "sk11" = sk11times,
+        "sk12" = sk12times,
+        "sk13" = sk13times
+    }
+    machines = {
+        "treadmills" : Treadmills,
+        "striders" : striders,
+        "skis" : skis
+    }
     return render_template("LoggedInUsers.html", times=times)
 
 
