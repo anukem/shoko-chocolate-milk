@@ -29,7 +29,7 @@ class Schedule():
 		#	err = 1
 		#	self.cur.execute("INSERT INTO schedules VALUES (%s,%s,%s) ", (self.user_id,self.machineid,time))
 
-		def make_reservation(userid,machineid,):
+		def make_reservation(userid,machineid):
 			try:
 				availbility = self.is_available()
 				if availability == True:
