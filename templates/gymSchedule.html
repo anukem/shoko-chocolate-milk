@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> SHOKO | Specific Machine Day Schedule </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/scheduleStyle.css') }}">
+</head>
+
+<style>
+  .center-table {
+    border-radius: 25px;
+    width:800px;
+    margin:0 auto;
+    margin-top: 100px;
+    background-color: white;
+    color: #0e0e3f;
+  }
+</style>
+<body>
+
+  <div class="center-table">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Machine Type</th>
+            <th>Machine ID</th>
+            <th>Workout Time</th>
+            <th>User UNI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ENTER ALL SCHEDULES WITH A FOR LOOP
+          {% for machine in machines %}
+          <tr>
+            <td>{{ machine[type] }}</td>
+            <td>{{ machine[id] }}</td>
+            <td>{{ machine[time] }}</td>
+            <td>{{ machine[uni] }}</td>
+          </tr>
+          {% endfor %}
+          -->
+          <tr>
+            <td>Treadmill</td>
+            <td>tr11</td>
+            <td>02:00pm - 02:30 pm</td>
+            <td>sk4120</td>
+          </tr>
+          <tr>
+            <td>Ski</td>
+            <td>sk12</td>
+            <td>024:00pm - 04:30 pm</td>
+            <td>mj2323</td>
+          </tr>
+          <tr>
+            <td>Strider</td>
+            <td>st13</td>
+            <td>02:00pm - 02:30 pm</td>
+            <td>lbj2368</td>
+          </tr>
+          <tr>
+            <td>Treadmill</td>
+            <td>tr11</td>
+            <td>02:00pm - 02:30 pm</td>
+            <td>sk4120</td>
+          </tr>
+          <tr>
+            <td>Ski</td>
+            <td>sk12</td>
+            <td>024:00pm - 04:30 pm</td>
+            <td>mj2323</td>
+          </tr>
+          <tr>
+            <td>Strider</td>
+            <td>st13</td>
+            <td>02:00pm - 02:30 pm</td>
+            <td>lbj2368</td>
+          </tr>
+          <tr>
+            <td>Treadmill</td>
+            <td>tr11</td>
+            <td>02:00pm - 02:30 pm</td>
+            <td>sk4120</td>
+          </tr>
+          <tr>
+            <td>Ski</td>
+            <td>sk12</td>
+            <td>024:00pm - 04:30 pm</td>
+            <td>mj2323</td>
+          </tr>
+          <tr>
+            <td>Strider</td>
+            <td>st13</td>
+            <td>02:00pm - 02:30 pm</td>
+            <td>lbj2368</td>
+          </tr>
+          <tr>
+            <td>Treadmill</td>
+            <td>tr11</td>
+            <td>02:00pm - 02:30 pm</td>
+            <td>sk4120</td>
+          </tr>
+          <tr>
+            <td>Ski</td>
+            <td>sk12</td>
+            <td>024:00pm - 04:30 pm</td>
+            <td>mj2323</td>
+          </tr>
+          <tr>
+            <td>Strider</td>
+            <td>st13</td>
+            <td>02:00pm - 02:30 pm</td>
+            <td>lbj2368</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% extends "navBar.html" %}
+
+  </body>
+</html>
+​
