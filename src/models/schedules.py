@@ -9,7 +9,7 @@ class Schedule():
 		self.conn = self.db_connect()
 		self.cur = self.conn.cursor()
 		self.mid = machineid
-
+		self.reserved_times = {"8:00":False,"8:30":False,"9:00":False,"10:00":False,"10:30":False,"11:00":False,"11:30":False,"12:00":False,"12:30":False,"13:00":False,"13:30":False,"14:00":False,"14:30":False,"15:00":False,"15:30":False,"16:00":False}
 		#function to find out if a time slot for a certain machine is free or full
 		def is_available(self):
 			try:

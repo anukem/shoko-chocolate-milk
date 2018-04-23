@@ -12,7 +12,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+	incorrectLogin = False
+	print(len(request.args))
+	if len(request.args) > 0:
+		incorrectLogin = request.args['incorrectLogin']
+	return render_template("index.html",incorrectLogin=incorrectLogin)
 
 #placeholder function
 @app.route('/sign_up', methods=['POST'])
@@ -48,10 +52,10 @@ def login():
 				return redirect(url_for("LoggedInUsers"))
 			else:
 				error = "invalid username/password"
-				return redirect(url_for("incorrectLogin.html"))
+				return redirect(url_for("index",incorrectLogin=True))
 		except Exception as e:
 			print(e)
-			return render_template("index.html")
+			return redirect(url_for("index"))
 
 
 	#return render_template("login.html",error=error)
