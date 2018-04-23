@@ -3,20 +3,31 @@
 <html>
     <head>
       <title> SHOKO | Success - You've scheduled a workout! </title>
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/landingStyle.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/simpleTexts.css') }}">
     </head>
 
     <body>
-      <h1>You have successfully created a new workout!</h>
-      <h2>
-        Your workout will be on the {{ machine[type] }} numbered {{ machine[id] }}
-        during {{ machine[time] }}.
-      </h>
-      <h3>
-        The hard work is behind you!
-        All that's left is actually working out!
-      </h>
+      <style>
+        h1, h2, h3 {
+          color: white;
+        }
+      </style>
 
+      <center>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='pics/logo.png') }}">
+        </div>
+
+        <h1>You have successfully created a new workout!</h>
+        <h2>
+          Your workout will be on the {{ machine[type] }} numbered {{ machine[id] }}
+          during {{ machine[time] }}.
+        </h>
+        <h3>
+          The hard work is behind you!
+          All that's left is actually working out!
+        </h>
+    </center>
       {% extends "navBar.html" %}
     </body>
 

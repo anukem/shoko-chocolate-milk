@@ -1,0 +1,26 @@
+<html>
+    <head>
+      <title> SHOKO | No Access </title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/simpleTexts.css') }}">
+    </head>
+
+    <body>
+      <style>
+        h1, h2, h3 {
+          color: white;
+        }
+      </style>
+      <center>
+  		<div class="logo">
+      		<img src="{{ url_for('static', filename='pics/logo.png') }}">
+    	</div>
+      <div class="text">
+        <h2>
+          Please log in in order to view this page.
+        </h>
+      </div>
+    </center>
+      {% extends "navBar.html" %}
+    </body>
+
+</html>
