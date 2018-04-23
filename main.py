@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,redirect,url_for
 from flask import render_template
 from flask import request
 
@@ -9,7 +9,6 @@ from models.machines import Machine
 from models import baseModel as bm
 
 app = Flask(__name__)
-loggedIn = False
 
 @app.route('/')
 def index():
@@ -46,11 +45,10 @@ def login():
 
 			user.db_close()
 			if res is True:
-				loggedIn = True
-				return render_template("LoggedInUsers.html",error=error)
+				return redirect(url_for("LoggedInUsers"))
 			else:
 				error = "invalid username/password"
-				return render_template("incorrectLogin.html",error=error)
+				return redirect(url_for("incorrectLogin.html"))
 		except Exception as e:
 			print(e)
 			return render_template("index.html")
@@ -68,7 +66,7 @@ def machine_schedule():
 def overall_schedule():
 	return render_template("overallDaySchedule.html")
 
-@app.route('/LoggedInUsers')
+@app.route('/LoggedInUsers',methods=['GET','POST'])
 def LoggedInUsers():
     times = [
         "10:00 am - 10:30 am",
@@ -82,10 +80,8 @@ def LoggedInUsers():
         "02:30 pm - 03:00 pm",
         "03:00 pm - 03:30 pm"
     ]
-    if loggedIn is True:
-    	return render_template("LoggedInUsers.html", times=times)
-    else:
-    	return render_template("index.html")
+    return render_template("LoggedInUsers.html", times=times)
+    
 
 @app.route('/incorrectLogin')
 def incorrectLogin():
@@ -96,7 +92,6 @@ def incorrectLogin():
 		user.db_close()
 
 		if res is 1:
-			loggedIn = True
 			return render_template("LoggedInUsers.html",error=error)
 		else:
 			error = "invalid username/password"
@@ -105,19 +100,15 @@ def incorrectLogin():
 
 @app.route('/machineDayschedule')
 def machineDayschedule():
-	if loggedIn is True:
-		return render_template("machineDayschedule.html")
-	else:
-		return render_template("index.html")
+	return render_template("machineDayschedule.html")
+
 
 @app.route('/scheduleWorkoutSuccess')
 def scheduleWorkoutSuccess():
     # REPLACE THE LINE UNDER WITH ACTUAL DETAILS
 	machine = {'type' : 'Treadmill', 'ID' : 't11', 'Time:' : '02:00 pm - 02:30 pm'}
-	if loggedIn is True:
-		return render_template("scheduleWorkoutSuccess.html", machine=machine)
-	else:
-		return render_template("index.html")
+	return render_template("scheduleWorkoutSuccess.html", machine=machine)
+	
 
 
 
