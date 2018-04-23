@@ -71,36 +71,29 @@ def overall_schedule():
 
 @app.route('/LoggedInUsers',methods=['GET','POST'])
 def LoggedInUsers():
-        tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
-        tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
-        tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
-        st11times = ["08:00 - 08:30", "14:30 - 15:00"]
-        st12times = ["08:00 - 08:30", "14:30 - 15:00"]
-        st13times = ["08:00 - 08:30", "14:30 - 15:00"]
-        sk11times = ["08:00 - 08:30", "14:30 - 15:00"]
-        sk12times = ["08:00 - 08:30", "14:30 - 15:00"]
-        sk13times = ["08:00 - 08:30", "14:30 - 15:00"]
-    treadmills = {
-        "tr11" = tr11times,
-        "tr12" = tr12times,
-        "tr13" = tr13times
-    }
-    striders = {
-        "st11" = st11times,
-        "st12" = st12times,
-        "st13" = st13times
-    }
-    skis = {
-        "sk11" = sk11times,
-        "sk12" = sk12times,
-        "sk13" = sk13times
-    }
+    tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
+    tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
+    tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
+
+    st11times = ["08:00 - 08:30", "14:30 - 15:00"]
+    st12times = ["08:00 - 08:30", "14:30 - 15:00"]
+    st13times = ["08:00 - 08:30", "14:30 - 15:00"]
+
+    sk11times = ["08:00 - 08:30", "14:30 - 15:00"]
+    sk12times = ["08:00 - 08:30", "14:30 - 15:00"]
+    sk13times = ["08:00 - 08:30", "14:30 - 15:00"]
+
+    treadmills = { 'tr11': tr11times, 'tr12': tr12times, 'tr13': tr13times }
+    striders = { 'st11': st11times, 'st12': st12times, 'st13': st13times }
+    skis = { 'sk11': sk11times, 'sk12': sk12times, 'sk13': sk13times }
+
     machines = {
-        "treadmills" : Treadmills,
-        "striders" : striders,
-        "skis" : skis
+        'Treadmills': treadmills,
+        'Striders': striders,
+        'Skis': skis
     }
-    return render_template("LoggedInUsers.html", times=times)
+
+    return render_template("LoggedInUsers.html", machines=machines)
 
 
 @app.route('/incorrectLogin')
@@ -118,9 +111,9 @@ def incorrectLogin():
 			return render_template("incorrectLogin.html",error=error)
 
 
-@app.route('/machineDayschedule')
-def machineDayschedule():
-	return render_template("machineDayschedule.html")
+@app.route('/gymSchedule')
+def gymSchedule():
+	return render_template("gymSchedule.html")
 
 
 @app.route('/scheduleWorkoutSuccess')

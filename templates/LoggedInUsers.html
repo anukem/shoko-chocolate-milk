@@ -53,23 +53,23 @@
 		  <form class="modal-content animate" action="{{ url_for('login') }}" method=post>
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container">
-          <label><b>Choose Machine Type:</b></label><br>
-          <label class="radio-inline">
-            <input type="radio" name="optradio">Treadmill
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="optradio">Strider
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="optradio">Ski
-          </label>
-          <br><br>
-          <label for="sel1">Choose a Time:</label><br>
-          <select class="form-control" id="sel1">
-            {% for time in times %}
-              <option>{{ time }}</option>
+
+          <label><b>Choose Machine And Time:</b></label><br>
+          {% for machineType in machines %}
+            <br><br>{{ machineType }} <br>
+            {% for specificMachine in machines[machineType] %}
+              <label class="radio-inline">
+                <input type="radio" name="optradio">{{ specificMachine }}
+              </label>
+              <select class="form-control" id="sel1">
+                {% for machineTime in machines[machineType][specificMachine] %}
+                  <option>{{ machineTime }}</option>
+                {% endfor %}
+              </select>
+              <br>
             {% endfor %}
-          </select>
+          {% endfor %}
+
           <br><br>
           <div class="clearfix1">
             <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn1">Cancel</button>
