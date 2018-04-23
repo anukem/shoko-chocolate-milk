@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+      <title> SHOKO | Success - You've scheduled a workout! </title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/simpleTexts.css') }}">
+    </head>
+
+    <body>
+      <style>
+        h1, h2, h3 {
+          color: white;
+        }
+      </style>
+
+      <center>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='pics/logo.png') }}">
+        </div>
+
+        {% if schedule %}
+          <h1>You have successfully created a new workout!</h>
+          <h2>
+            Your workout will be on the {{ machine['type'] }} numbered '{{ machine['ID'] }}'
+            during {{ machine['Time'] }}.
+          </h>
+          <h3>
+            The hard work is behind you!
+            All that's left is actually working out!
+          </h>
+        {% endif %}
+
+        {% if cancel %}
+          <h1>You have successfully canceled your workout!</h>
+          <h3>
+            Thank you for choosing SHOKO!
+          </h>
+        {% endif %}
+
+    </center>
+      {% extends "navBar.html" %}
+    </body>
+
+</html>

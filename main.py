@@ -71,10 +71,10 @@ def overall_schedule():
 
 @app.route('/LoggedInUsers',methods=['GET','POST'])
 def LoggedInUsers():
-	mg = Machine(bm.Base_Model())
+    # mg = Machine(bm.Base_Model())
+    #
+	# dicts = mg.get_machine_schedule_dictionaries()
 
-	dicts = mg.get_machine_schedule_dictionaries()
-    
     tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
@@ -120,11 +120,13 @@ def gymSchedule():
 	return render_template("gymSchedule.html")
 
 
-@app.route('/scheduleWorkoutSuccess')
-def scheduleWorkoutSuccess():
-    # REPLACE THE LINE UNDER WITH ACTUAL DETAILS
-	machine = {'type' : 'Treadmill', 'ID' : 't11', 'Time:' : '02:00 pm - 02:30 pm'}
-	return render_template("scheduleWorkoutSuccess.html", machine=machine)
+@app.route('/resultPage')
+def resultPage():
+    # REPLACE THESE PLACEHOLDERS WITH ACTUAL DATA
+    schedule = True
+    cancel = False
+    machine = {'type': 'Treadmill', 'ID': 't11', 'Time': '02:00 pm - 02:30 pm'}
+    return render_template("resultPage.html", machine=machine, schedule=schedule, cancel=cancel)
 
 
 
