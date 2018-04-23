@@ -28,6 +28,7 @@ def sign_up():
 			user.db_close()
 			mg = Machine(bm.Base_Model())
 			machines = mg.get_all_machines()
+			loggedIn = True
 			return render_template("LoggedInUsers.html",error=error,machines=machines)
 		else:
 			user.db_close()
@@ -38,17 +39,23 @@ def sign_up():
 def login():
 	error = None
 	if request.method == "POST":
-		user = User(request.form["uni"],request.form["email"],request.form["psw"])
-		res = user.findUser() 
+		try:
+			print(request.form['uni'])
+			user = User(request.form["uni"],None,request.form["psw"])
+			res = user.findUser() 
 
-		user.db_close()
+			user.db_close()
+			if res is True:
+				loggedIn = True
+				return render_template("LoggedInUsers.html",error=error)
+			else:
+				error = "invalid username/password"
+				return render_template("incorrectLogin.html",error=error)
+		except Exception as e:
+			print(e)
+			return render_template("index.html")
 
-		if res is 1:
-			loggedIn = True
-			return render_template("LoggedInUsers.html",error=error)
-		else:
-			error = "invalid username/password"
-			return render_template("incorrectLogin.html",error=error)
+
 	#return render_template("login.html",error=error)
 
 @app.route('/machine_schedule')
@@ -82,7 +89,19 @@ def LoggedInUsers():
 
 @app.route('/incorrectLogin')
 def incorrectLogin():
-    return render_template("incorrectLogin.html")
+	if request.method == "POST":
+		user = User(request.form["uni"],request.form["email"],request.form["psw"])
+		res = user.findUser() 
+
+		user.db_close()
+
+		if res is 1:
+			loggedIn = True
+			return render_template("LoggedInUsers.html",error=error)
+		else:
+			error = "invalid username/password"
+			return render_template("incorrectLogin.html",error=error)
+    
 
 @app.route('/machineDayschedule')
 def machineDayschedule():
