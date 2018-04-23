@@ -27,6 +27,9 @@ def sign_up():
 		res = user.addUser()
 		print("added user")
 
+
+
+
 		if res is 1:
 			user.db_close()
 			mg = Machine(bm.Base_Model())
@@ -45,7 +48,7 @@ def login():
 		try:
 			print(request.form['uni'])
 			user = User(request.form["uni"],None,request.form["psw"])
-			res = user.findUser() 
+			res = user.findUser()
 
 			user.db_close()
 			if res is True:
@@ -85,13 +88,13 @@ def LoggedInUsers():
         "03:00 pm - 03:30 pm"
     ]
     return render_template("LoggedInUsers.html", times=times)
-    
+
 
 @app.route('/incorrectLogin')
 def incorrectLogin():
 	if request.method == "POST":
 		user = User(request.form["uni"],request.form["email"],request.form["psw"])
-		res = user.findUser() 
+		res = user.findUser()
 
 		user.db_close()
 
@@ -100,7 +103,7 @@ def incorrectLogin():
 		else:
 			error = "invalid username/password"
 			return render_template("incorrectLogin.html",error=error)
-    
+
 
 @app.route('/machineDayschedule')
 def machineDayschedule():
@@ -112,7 +115,7 @@ def scheduleWorkoutSuccess():
     # REPLACE THE LINE UNDER WITH ACTUAL DETAILS
 	machine = {'type' : 'Treadmill', 'ID' : 't11', 'Time:' : '02:00 pm - 02:30 pm'}
 	return render_template("scheduleWorkoutSuccess.html", machine=machine)
-	
+
 
 
 
