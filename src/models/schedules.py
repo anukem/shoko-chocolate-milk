@@ -8,12 +8,12 @@ class Schedule():
 
 		self.conn = self.db_connect()
 		self.cur = self.conn.cursor()
-		self.machineid = machineid
+		self.mid = machineid
 
 		#function to find out if a time slot for a certain machine is free or full
 		def is_available(self):
 			try:
-				available = self.cur.execute("SELECT * FROM machines WHERE mid IS NULL")
+				available = self.cur.execute("SELECT * FROM schedules WHERE mid IS NULL")
 				records = cur.fetchall()
 				if(len(records) is 0):
 					return True
@@ -24,7 +24,6 @@ class Schedule():
 			except Exception as e:
 				print(e)
 			
-		
 		#def reserve_time_slot(self,time):
 		#	err = 1
 		#	self.cur.execute("INSERT INTO schedules VALUES (%s,%s,%s) ", (self.user_id,self.machineid,time))
@@ -33,7 +32,7 @@ class Schedule():
 			try:
 				availbility = self.is_available()
 				if availability == True:
-					self.cur.execute("INSERT INTO schedules VALUES (" + ("'") + (self.userid) +("'") +(", '")+ (self.machineid) + ("',"))
+					self.cur.execute("INSERT INTO schedules VALUES (" + ("'") + (self.userid) +("'") +(", '")+ (self.mid) + ("',"))
 					return print("Your machine is reserved")
 			except:
 				print("could no insert into db")
@@ -42,9 +41,9 @@ class Schedule():
 		def cancel_reservation(userid,machineid):
 			err = 1
 			try:
-				self.cur.execute("DELETE FROM schedules WHERE userid="+self.userid + "AND machineid="+machineid)
-			except:
-				print("could not execute statement")
+				self.cur.execute('DELETE FROM schedules WHERE userid=\'%s\' AND machineid=\'%s\''%self.userid%self.mid)
+			except Exception as e:
+				print(e)
 				err = 0
 				
 			return err
