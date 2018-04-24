@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>About</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/simpleTexts.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+  <center>
+    <h1>About</h1>
+  </center>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <img class="img-responsive" src="{{ url_for('static', filename='pics/blueGym.png') }}">
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <p>
+        Columbia University has only one gym. The many users of the gym have limited
+        number of cardio machine to workout on. To manage this situation, we have
+        created an application that finally gives gym goers a seamless experience
+        through which they can schedule workouts, cancel workouts, and observe the
+        overall situation at the gym!
+      </p>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>
+{% extends "navBar.html" %}
+
+</body>
+</html>

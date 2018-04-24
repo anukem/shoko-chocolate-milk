@@ -17,7 +17,7 @@
 
 		<div id="id01" class="modal1">
 		  <span onclick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">×</span>
-		  <form class="modal1-content animate" action="{{ url_for('resultPage') }}" method="post">
+		  <form class="modal1-content animate" action="{{ url_for('scheduleSuccess') }}" method="post">
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container1">
           <label><b>Choose Machine And Time:</b></label><br>
@@ -46,30 +46,17 @@
 
 		<div id="id02" class="modal">
 		  <span onclick="document.getElementById('id02').style.display='none'" class="close1" title="Close Modal">&times;</span>
-		  <form class="modal-content animate" action="{{ url_for('login') }}" method=post>
+		  <form class="modal-content animate" action="{{ url_for('cancelSuccess') }}" method=post>
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container">
-
-          <label><b>Choose Machine And Time:</b></label><br>
-          {% for machineType in machines %}
-            <br><br>{{ machineType }} <br>
-            {% for specificMachine in machines[machineType] %}
-              <label class="radio-inline">
-                <input type="radio" name="optradio">{{ specificMachine }}
-              </label>
-              <select class="form-control" id="sel1">
-                {% for machineTime in machines[machineType][specificMachine] %}
-                  <option>{{ machineTime }}</option>
-                {% endfor %}
-              </select>
-              <br>
-            {% endfor %}
-          {% endfor %}
-
-          <br><br>
+          <h3>Your next workout is:</h>
+          <p>+ Machine type: {{ nextWorkout[0] }}</p>
+          <p>+ Machine ID: {{ nextWorkout[1] }}</p>
+          <p>+ Duration: {{ nextWorkout[2] }}</p>
+          <p>+ Your UNI: {{ nextWorkout[3] }}</p>
           <div class="clearfix1">
             <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn1">Cancel</button>
-            <button type="submit" class="signupbtn1">Cancel My Workout!</button>
+            <button type="submit" class="signupbtn1">Cancel This Workout!</button>
           </div>
 		    </div>
 		  </form>
