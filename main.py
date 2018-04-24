@@ -43,16 +43,16 @@ def login():
 	error = None
 	if request.method == "POST":
 		try:
-			print(request.form['uni'])
+			#print(request.form['uni'])
 			user = User(request.form["uni"],None,request.form["psw"])
 			res = user.findUser()
 
-			user.db_close()
-			if res is True:
-				return redirect(url_for("LoggedInUsers"))
-			else:
-				error = "invalid username/password"
-				return redirect(url_for("index",incorrectLogin=True))
+			#user.db_close()
+			# if res is True:
+			# 	return redirect(url_for("LoggedInUsers"))
+			# else:
+			# 	error = "invalid username/password"
+			# 	return redirect(url_for("index",incorrectLogin=True))
 		except Exception as e:
 			print(e)
 			return redirect(url_for("index"))
@@ -124,7 +124,9 @@ def incorrectLogin():
 
 @app.route('/gymSchedule')
 def gymSchedule():
-	return render_template("gymSchedule.html")
+	s = Schedule()
+	ret = s.get_all_appointments()
+	return render_template("gymSchedule.html",workouts = ret)
 
 
 @app.route('/cancelSuccess')
