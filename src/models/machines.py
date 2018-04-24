@@ -47,7 +47,7 @@ class Machine(Base_Model):
 			schedule = Schedule()
 			times = schedule.get_available_times(mid)
 			#print(times)
-			if mtype == "treadmill":
+			if mtype == "Treadmill":
 				types["Treadmill"][mid] = times
 			if mtype == "Strider":
 				types["Strider"][mid] = times
