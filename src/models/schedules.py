@@ -11,7 +11,7 @@ class Schedule(Base_Model):
 
 		self.conn = self.db_connect()
 		self.cur = self.conn.cursor()
-		self.are_reserved = ["08:00 - 08:30","08:30 - 09:00","09:00 - 09:30","10:00 - 10:00","10:30 - 11:00","11:00 - 11:30","11:30 - 12:00","12:00 - 12:30","12:30 - 13:00","13:00 - 13:30","13:30 - 14:00","14:00 - 14:30","14:30 - 15:00","15:00 - 15:30","15:30 - 16:00","16:00 - 16:30","16:30 - 17:00"]
+		self.are_reserved = ["08:00 - 08:30","08:30 - 09:00","09:00 - 09:30","10:00 - 10:30","10:30 - 11:00","11:00 - 11:30","11:30 - 12:00","12:00 - 12:30","12:30 - 13:00","13:00 - 13:30","13:30 - 14:00","14:00 - 14:30","14:30 - 15:00","15:00 - 15:30","15:30 - 16:00","16:00 - 16:30","16:30 - 17:00"]
 		#function to find out if a time slot for a certain machine is free or full
 	def is_available(self):
 		try:
@@ -30,15 +30,14 @@ class Schedule(Base_Model):
 	#	err = 1
 	#	self.cur.execute("INSERT INTO schedules VALUES (%s,%s,%s) ", (self.user_id,self.machineid,time))
 
-	def make_reservation(self,userid):
+	def make_reservation(self,time,userid,mid):
 		try:
-			availbility = self.is_available()
-			if availability == True:
-				self.cur.execute("INSERT INTO schedules VALUES (" + ("'") + (userid) +("'") +(", '")+ (self.mid) + ("',"))
-				return print("Your machine is reserved")
-		except:
-			print("could no insert into db")
-			err = 0
+			self.cur.execute("INSERT INTO schedules VALUES (\'{0}\',{1},\'{2}\'").format(userid,mid,time) 
+			return True
+		except Exception as e:
+			print(e)
+			return False
+			
 
 	def cancel_reservation(self,userid,mid):
 		err = 1
@@ -57,7 +56,7 @@ class Schedule(Base_Model):
 			records = self.cur.fetchall()
 
 			temp = self.are_reserved
-			print(temp)
+			
 			for record in records:
 				#record[2] corresponds to the time
 				time = record[2]
@@ -93,7 +92,12 @@ class Schedule(Base_Model):
 				temp = []
 				for item in record: #for formatting
 					temp.append(str(item))
-				total.append(temp)
+				temp2 = [4]
+				temp2.insert(0,temp[2])
+				temp2.insert(1,temp[3])
+				temp2.insert(2, temp[1])
+				temp2.insert(3, temp[0])
+				total.append(temp2)
 
 			return total
 
