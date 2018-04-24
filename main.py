@@ -6,7 +6,7 @@ import fix_path
 
 from models.users import User
 from models.machines import Machine
-from models import baseModel as bm 
+from models import baseModel as bm
 
 app = Flask(__name__)
 
@@ -58,6 +58,7 @@ def login():
 
 
 	#return render_template("login.html",error=error)
+
 
 @app.route('/machine_schedule')
 def machine_schedule():
