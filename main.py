@@ -6,7 +6,8 @@ import fix_path
 
 from models.users import User
 from models.machines import Machine
-from models import baseModel as bm
+from models.schedules import Schedule
+from models import baseModel as bm 
 
 app = Flask(__name__)
 
@@ -46,12 +47,12 @@ def login():
 			user = User(request.form["uni"],None,request.form["psw"])
 			res = user.findUser()
 
-			#user.db_close()
-			# if res is True:
-			# 	return redirect(url_for("LoggedInUsers"))
-			# else:
-			# 	error = "invalid username/password"
-			# 	return redirect(url_for("index",incorrectLogin=True))
+			user.db_close()
+			if res is True:
+				return redirect(url_for("LoggedInUsers"))
+			else:
+				error = "invalid username/password"
+				return redirect(url_for("index",incorrectLogin=True))
 		except Exception as e:
 			print(e)
 			return redirect(url_for("index"))
@@ -80,6 +81,12 @@ def LoggedInUsers():
 	tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
+	s = Schedule()
+	ret = s.get_user_schedule(2)
+	"""tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
+    tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
+    tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
+
 	tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
@@ -100,9 +107,10 @@ def LoggedInUsers():
         'Treadmills': treadmills,
         'Striders': striders,
         'Skis': skis
-		}
+		}"""
 
-	return render_template("LoggedInUsers.html", machines=dicts)
+
+	return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=ret)
 
 
 @app.route('/incorrectLogin')
@@ -119,11 +127,17 @@ def incorrectLogin():
 			error = "invalid username/password"
 			return render_template("incorrectLogin.html",error=error)
 
+@app.route('/scheduleWorkout',methods=['POST'])
+def scheduleWorkout():
+	s = Schedule()
+	workoutTime = request.form[("time")]
+	#s.makeReservation()
 
-@app.route('/gymSchedule')
+@app.route('/gymSchedule',methods=['GET','POST'])
 def gymSchedule():
 	s = Schedule()
 	ret = s.get_all_appointments()
+	print(ret)
 	return render_template("gymSchedule.html",workouts = ret)
 
 
@@ -131,20 +145,31 @@ def gymSchedule():
 def cancelSuccess():
     return render_template("cancelSuccess.html")
 
-@app.route('/scheduleSuccess')
+@app.route('/scheduleSuccess',methods=["POST","GET"])
 def scheduleSuccess():
     # REPLACE THESE PLACEHOLDERS WITH ACTUAL DATA
-    workout = {'type': 'Treadmill', 'ID': 't11', 'Time': '02:00 pm - 02:30 pm'}
-    return render_template("scheduleSuccess.html", workout=workout)
+	if request.method == "POST":
+		try:
+			#mtype, machineNum, time = request.form["machineType"], request.form["specificMachine"],request.form["machineTime"]
+			workout = {'type': 'Treadmill', 'ID': 't11', 'Time': '02:00 pm - 02:30 pm'}
+			return render_template("scheduleSuccess.html", workout=workout)
+		except Exception as e:
+			print(e)
+			return redirect(url_for("index"))
+
+	if request.method == "GET":
+		return redirect(url_for("index"))
 
 
 @app.route('/about')
 def about():
 	return render_template("about.html")
 
-@app.route('/cancelWorkout')
+@app.route('/cancelWorkout',methods=['POST'])
 def cancelWorkout():
-	nextWorkout = ["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
+	s = Schedule()
+	nextWorkout = s.get_user_schedule(2)[0]#["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
+	print(nextWorkout)
 	return render_template("cancelWorkout.html", nextWorkout=nextWorkout)
 
 
