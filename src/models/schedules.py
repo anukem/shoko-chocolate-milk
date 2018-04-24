@@ -1,4 +1,4 @@
-# base class for accessing schedules table 
+# base class for accessing schedules table
 
 from users import User
 #from baseModel import Base_Model#local
@@ -25,7 +25,7 @@ class Schedule(Base_Model):
 			#self.cur.execute("SELECT * FROM schedules WHERE time ="+str(time))
 		except Exception as e:
 			print(e)
-		
+
 	#def reserve_time_slot(self,time):
 	#	err = 1
 	#	self.cur.execute("INSERT INTO schedules VALUES (%s,%s,%s) ", (self.user_id,self.machineid,time))
@@ -38,8 +38,8 @@ class Schedule(Base_Model):
 				return print("Your machine is reserved")
 		except:
 			print("could no insert into db")
-			err = 0 
-	
+			err = 0
+
 	def cancel_reservation(self,userid,mid):
 		err = 1
 		try:
@@ -47,7 +47,7 @@ class Schedule(Base_Model):
 		except Exception as e:
 			print(e)
 			err = 0
-			
+
 		return err
 	#returns dictionary of all possible times for a machine and whether they are available or not
 	def get_available_times(self,mid):
@@ -68,7 +68,7 @@ class Schedule(Base_Model):
 					string = string+":"+str(time.minute)
 				for s in temp:
 					t = s.split(" ")[0]
-					
+
 					if t == string:
 						temp.remove(s)
 				#if string in temp:
@@ -113,7 +113,7 @@ class Schedule(Base_Model):
 				temp = []
 				for item in record:
 					temp.append(str(item))
-				
+
 				ret.append(temp)
 			return ret
 

@@ -76,12 +76,10 @@ def LoggedInUsers():
 
 	dicts = mg.get_machine_schedule_dictionaries()
 
-	"""tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
-    tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
-    tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
+	tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
+	tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
+	tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
-	nextWorkout = ["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
-	
 	tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
@@ -102,9 +100,9 @@ def LoggedInUsers():
         'Treadmills': treadmills,
         'Striders': striders,
         'Skis': skis
-		}"""
+		}
 
-	return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=nextWorkout)
+	return render_template("LoggedInUsers.html", machines=dicts)
 
 
 @app.route('/incorrectLogin')
@@ -141,6 +139,14 @@ def scheduleSuccess():
 @app.route('/about')
 def about():
 	return render_template("about.html")
+
+@app.route('/cancelWorkout')
+def cancelWorkout():
+	nextWorkout = ["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
+	return render_template("cancelWorkout.html", nextWorkout=nextWorkout)
+
+
+
 
 if __name__ == '__main__':
 	app.run(debug=True)
