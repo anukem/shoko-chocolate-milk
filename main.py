@@ -147,7 +147,6 @@ def scheduleWorkout():
 		if success == True:
 			return redirect(url_for("scheduleSuccess",workout=w))
 		else:
-			flash("error ocurred")
 			print("error")
 			redirect(url_for("index.html"))
 	except Exception as e:
