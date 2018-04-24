@@ -20,6 +20,10 @@
 		  <form class="modal1-content animate" action="{{ url_for('scheduleWorkout') }}" method="POST">
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container1">
+
+          <label><b>UNI</b></label>
+		      <input type="text" placeholder="Enter UNI.." name="uni" required>
+
           <label><b>Choose Machine And Time:</b></label><br>
           {% for machineType in machines %}
             <br><br>{{ machineType }} <br>
