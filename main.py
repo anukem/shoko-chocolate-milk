@@ -7,7 +7,7 @@ import fix_path
 from models.users import User
 from models.machines import Machine
 from models.schedules import Schedule
-from models import baseModel as bm 
+from models import baseModel as bm
 
 app = Flask(__name__)
 
@@ -168,9 +168,10 @@ def about():
 @app.route('/cancelWorkout',methods=['POST'])
 def cancelWorkout():
 	s = Schedule()
+	workoutExists = True
 	nextWorkout = s.get_user_schedule(2)[0]#["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
 	print(nextWorkout)
-	return render_template("cancelWorkout.html", nextWorkout=nextWorkout)
+	return render_template("cancelWorkout.html", nextWorkout=nextWorkout, workoutExists=workoutExists)
 
 
 
