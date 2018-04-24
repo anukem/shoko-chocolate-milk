@@ -1,24 +1,27 @@
 import unittest
-from shoko.src.models.users import User
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
+
+from baseModel import Base_Model
+from machines import Machine
+from users import User
 
 
 class MyTestCase(unittest.TestCase):
     
     def setUp(self):
-        user = User("test","test","test")
+        self.user = User("test_account", "test@test.com", "password1234")
+        self.user.addUser()
 
-    def test_connection(self):
-
-        try:
-            #if user is found return true
-        	res = user.findUser()
-        	self.assertTrue(res)
-        except:
-        	print("error")
+    def test_login(self):
+        assert(self.user.findUser() == True)
         
-
+        
     def tearDown(self):
-        user.db_close()
+        self.user.deleteUser("test_account")
+        self.user.db_close()
+
 	
 
 if __name__ == '__main__':
