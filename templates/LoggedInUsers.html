@@ -29,7 +29,7 @@
             <br><br>{{ machineType }} <br>
             {% for specificMachine in machines[machineType] %}
               <label class="radio-inline">
-                <input type="radio" name="optradio">{{ specificMachine }}
+                <input type="radio" value="{{specificMachine}}" name="optradio">{{ specificMachine }}
               </label>
               <select class="form-control" id="time" name=time>
                 {% for machineTime in machines[machineType][specificMachine] %}

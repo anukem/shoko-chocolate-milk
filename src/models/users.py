@@ -49,7 +49,7 @@ class User(Base_Model):
 		try:
 
 			#print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
-			self.cur.execute('SELECT FROM users WHERE name={0} and password={1}'.format(str(self.username),str(self.password)))
+			self.cur.execute('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
 			records = self.cur.fetchall()
 			#print(records)
 			#print(len(records))
@@ -71,10 +71,16 @@ class User(Base_Model):
 		except Exception as e:
 			print(e)
 	def getNameFromID(self,id):
-		self.cur.execute('SELECT * FROM users WHERE name=\'{0}\''.format(id))
+		self.cur.execute('SELECT * FROM users WHERE uid=\'{0}\''.format(id))
 		record = self.cur.fetchone()
 
 		return record[0]
+
+	def getIDFromName(self,name):
+		self.cur.execute('SELECT * FROM users WHERE name = \'{0}\''.format(name))
+		record = self.cur.fetchone()
+
+		return record[3]
 
 
 

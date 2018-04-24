@@ -1,4 +1,4 @@
-from flask import Flask,redirect,url_for
+from flask import Flask,redirect,url_for,flash
 from flask import render_template
 from flask import request
 
@@ -76,13 +76,15 @@ def LoggedInUsers():
 	mg = Machine(bm.Base_Model())
 
 	dicts = mg.get_machine_schedule_dictionaries()
-
+	#print(dicts)
 	tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
 	s = Schedule()
 	ret = s.get_user_schedule(2)
+	s.db_close()
+	mg.db_close()
 	"""tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
@@ -130,7 +132,28 @@ def incorrectLogin():
 @app.route('/scheduleWorkout',methods=['POST'])
 def scheduleWorkout():
 	s = Schedule()
-	workoutTime = request.form[("time")]
+	u = User()
+	try:
+		workoutTime = request.form[("time")]
+		uni = request.form["uni"]
+		mid = request.form['optradio']
+		#name = u.getNameFromID(uni)
+		uid = u.getIDFromName(uni)
+		print(uid)
+		print("w is:")
+		w = [uid,workoutTime,mid]
+		print(w)
+		success = s.make_reservation(workoutTime,uid,mid)
+		if success == True:
+			return redirect(url_for("scheduleSuccess",workout=w))
+		else:
+			flash("error ocurred")
+			print("error")
+			redirect(url_for("index.html"))
+	except Exception as e:
+		print(e)
+		flash("error ocurred")
+		redirect(url_for("index.html"))
 	#s.makeReservation()
 
 @app.route('/gymSchedule',methods=['GET','POST'])
@@ -145,20 +168,18 @@ def gymSchedule():
 def cancelSuccess():
     return render_template("cancelSuccess.html")
 
-@app.route('/scheduleSuccess',methods=["POST","GET"])
+@app.route('/scheduleSuccess',methods=['POST','GET'])
 def scheduleSuccess():
-    # REPLACE THESE PLACEHOLDERS WITH ACTUAL DATA
-	if request.method == "POST":
-		try:
-			#mtype, machineNum, time = request.form["machineType"], request.form["specificMachine"],request.form["machineTime"]
-			workout = {'type': 'Treadmill', 'ID': 't11', 'Time': '02:00 pm - 02:30 pm'}
-			return render_template("scheduleSuccess.html", workout=workout)
-		except Exception as e:
-			print(e)
-			return redirect(url_for("index"))
+	if request.method == 'GET':
 
-	if request.method == "GET":
-		return redirect(url_for("index"))
+		w = request.args['workout']
+		return render_template("scheduleSuccess.html",workout=w)
+
+	if request.method == 'POST':
+		w = request.args['workout']
+
+		return render_template("scheduleSuccess.html",workout=w)
+
 
 
 @app.route('/about')
@@ -169,9 +190,15 @@ def about():
 def cancelWorkout():
 	s = Schedule()
 	workoutExists = True
-	nextWorkout = s.get_user_schedule(2)[0]#["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
-	print(nextWorkout)
-	return render_template("cancelWorkout.html", nextWorkout=nextWorkout, workoutExists=workoutExists)
+
+	nextWorkout = s.get_user_schedule(2)#["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
+	print(nextWorkout[0])
+	if nextWorkout is not None:
+
+		return render_template("cancelWorkout.html", nextWorkout=nextWorkout[0])
+	else:
+		flash("no workout found")
+		return render_template()
 
 
 

@@ -41,17 +41,18 @@ class Machine(Base_Model):
 		types = {"Treadmill":{},"Strider":{},"Ski":{}}
 		for machine in machines:
 			mid = machine[0]
-			print(mid)
+			#print(mid)
 			mtype = machine[2]
-			print(mtype)
+			#print(mtype)
 			schedule = Schedule()
 			times = schedule.get_available_times(mid)
-			
+			#print(times)
 			if mtype == "treadmill":
 				types["Treadmill"][mid] = times
 			if mtype == "Strider":
 				types["Strider"][mid] = times
 			if mtype == "Ski":
 				types["Ski"][mid] = times
-
+			schedule.db_close()
+		mg.db_close()
 		return types
