@@ -133,4 +133,9 @@ def resultPage():
 
 
 if __name__ == '__main__':
+	try:
+	  import googleclouddebugger
+	  googleclouddebugger.enable()
+	except ImportError:
+	  pass
 	app.run(debug=True)
