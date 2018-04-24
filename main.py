@@ -82,7 +82,7 @@ def LoggedInUsers():
 
 
 	s = Schedule()
-	ret = s.get_user_schedule(2)
+	ret = s.get_user_schedule()
 	s.db_close()
 	mg.db_close()
 	"""tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
@@ -152,7 +152,6 @@ def scheduleWorkout():
 			redirect(url_for("index.html"))
 	except Exception as e:
 		print(e)
-		flash("error ocurred")
 		redirect(url_for("index.html"))
 	#s.makeReservation()
 
