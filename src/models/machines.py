@@ -2,7 +2,9 @@
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
-from baseModel import Base_Model
+#from baseModel import Base_Model #local
+from Base_Model import Base_Model#live
+
 from schedules import Schedule
 
 class Machine(Base_Model):
@@ -42,8 +44,8 @@ class Machine(Base_Model):
 			print(mid)
 			mtype = machine[2]
 			print(mtype)
-			schedule = Schedule(mid)
-			times = schedule.get_available_times()
+			schedule = Schedule()
+			times = schedule.get_available_times(mid)
 			
 			if mtype == "treadmill":
 				types["Treadmill"][mid] = times
