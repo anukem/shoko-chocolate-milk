@@ -2,8 +2,8 @@
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
-#from baseModel import Base_Model #local
-from Base_Model import Base_Model#live
+from baseModel import Base_Model
+
 
 from schedules import Schedule
 

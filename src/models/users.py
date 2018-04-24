@@ -3,8 +3,8 @@ import sys
 import os
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, '/shoko/src/models')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
-#from baseModel import Base_Model #local
-from Base_Model import Base_Model #live
+from baseModel import Base_Model
+
 
 import sys
 

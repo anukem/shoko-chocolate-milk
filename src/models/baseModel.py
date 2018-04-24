@@ -1,11 +1,12 @@
 import psycopg2 as psy 
+import os 
 
 class Base_Model:
 
-	def __init__(self, hostname= "localhost", 
+	def __init__(self, hostname= os.environ['DB_HOSTNAME'], 
 				db_username = "postgres", 
-				db_password="i8KND8LOodrh2kbp",
-				dbname="postgres", port=5432):
+				db_password=os.environ['DB_PASSWORD'],
+				dbname="postgres"):
 
 		self.hostname = hostname
 		self.db_username = db_username
@@ -18,7 +19,7 @@ class Base_Model:
 		self.conn = psy.connect(host=self.hostname, 
 			user=self.db_username, 
 			password=self.db_password, 
-			dbname=self.dbname, port=5432)
+			dbname=self.dbname)
 		return self.conn 
 
 	def db_close(self):
