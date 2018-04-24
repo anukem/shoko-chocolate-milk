@@ -2,6 +2,7 @@ from flask import Flask,redirect,url_for
 from flask import render_template
 from flask import request
 
+
 import fix_path
 
 from models.users import User
@@ -128,6 +129,9 @@ def resultPage():
     machine = {'type': 'Treadmill', 'ID': 't11', 'Time': '02:00 pm - 02:30 pm'}
     return render_template("resultPage.html", machine=machine, schedule=schedule, cancel=cancel)
 
+@app.route('/pleaseLogIn')
+def pleaseLogIn():
+	return render_template("pleaseLogIn.html")
 
 
 
