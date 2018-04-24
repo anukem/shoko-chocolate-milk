@@ -3,7 +3,9 @@ import sys
 import os
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, '/shoko/src/models')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
-from baseModel import Base_Model
+#from baseModel import Base_Model #local
+from Base_Model import Base_Model #live
+
 import sys
 
 class User(Base_Model):
@@ -30,6 +32,7 @@ class User(Base_Model):
 
 		return err
 
+
 	def deleteUser(self, username):
 		err = 1
 		try:
@@ -44,6 +47,7 @@ class User(Base_Model):
 
 	def findUser(self):
 		try:
+
 			#print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
 			self.cur.execute('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
 			records = self.cur.fetchall()
