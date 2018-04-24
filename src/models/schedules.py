@@ -1,8 +1,8 @@
 # base class for accessing schedules table 
 
 from users import User
-#from baseModel import Base_Model#local
-from Base_Model import Base_Model#live
+from baseModel import Base_Model
+
 
 
 class Schedule(Base_Model):

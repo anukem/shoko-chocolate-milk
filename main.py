@@ -6,8 +6,7 @@ import fix_path
 
 from models.users import User
 from models.machines import Machine
-#from models import baseModel as bm #local
-from models import Base_Model as bm #live
+from models import baseModel as bm 
 
 app = Flask(__name__)
 
