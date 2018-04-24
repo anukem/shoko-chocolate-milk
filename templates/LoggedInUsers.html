@@ -17,7 +17,7 @@
 
 		<div id="id01" class="modal1">
 		  <span onclick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">×</span>
-		  <form class="modal1-content animate" action="{{ url_for('scheduleSuccess') }}" method="post">
+		  <form class="modal1-content animate" action="{{ url_for('scheduleWorkout') }}" method="POST">
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container1">
 
@@ -31,9 +31,9 @@
               <label class="radio-inline">
                 <input type="radio" name="optradio">{{ specificMachine }}
               </label>
-              <select class="form-control" id="sel1">
+              <select class="form-control" id="time" name=time>
                 {% for machineTime in machines[machineType][specificMachine] %}
-                  <option>{{ machineTime }}</option>
+                  <option value="{{machineTime}}">{{ machineTime }}</option>
                 {% endfor %}
               </select>
               <br>
