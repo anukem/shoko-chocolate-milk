@@ -15,7 +15,7 @@
 
     <form class="modal-content" action="{{ url_for('cancelWorkout') }}" method=post>
       <div class="container">
-        <h3>Your next workout is:</h>
+        <h3>The workout you are canceling is:</h>
         <p>+ Machine type: {{ nextWorkout[0] }}</p>
         <p>+ Machine ID: {{ nextWorkout[1] }}</p>
         <p>+ Duration: {{ nextWorkout[2] }}</p>
