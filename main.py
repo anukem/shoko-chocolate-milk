@@ -80,25 +80,31 @@ def LoggedInUsers():
     tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
-    st11times = ["08:00 - 08:30", "14:30 - 15:00"]
-    st12times = ["08:00 - 08:30", "14:30 - 15:00"]
-    st13times = ["08:00 - 08:30", "14:30 - 15:00"]
+	nextWorkout = ["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
+	
+	tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
+	tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
+	tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
-    sk11times = ["08:00 - 08:30", "14:30 - 15:00"]
-    sk12times = ["08:00 - 08:30", "14:30 - 15:00"]
-    sk13times = ["08:00 - 08:30", "14:30 - 15:00"]
+	st11times = ["08:00 - 08:30", "14:30 - 15:00"]
+	st12times = ["08:00 - 08:30", "14:30 - 15:00"]
+	st13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
-    treadmills = { 'tr11': tr11times, 'tr12': tr12times, 'tr13': tr13times }
-    striders = { 'st11': st11times, 'st12': st12times, 'st13': st13times }
-    skis = { 'sk11': sk11times, 'sk12': sk12times, 'sk13': sk13times }
+	sk11times = ["08:00 - 08:30", "14:30 - 15:00"]
+	sk12times = ["08:00 - 08:30", "14:30 - 15:00"]
+	sk13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
-    machines = {
+	treadmills = { 'tr11': tr11times, 'tr12': tr12times, 'tr13': tr13times }
+	striders = { 'st11': st11times, 'st12': st12times, 'st13': st13times }
+	skis = { 'sk11': sk11times, 'sk12': sk12times, 'sk13': sk13times }
+
+	machines = {
         'Treadmills': treadmills,
         'Striders': striders,
         'Skis': skis
 		}"""
 
-	return render_template("LoggedInUsers.html", machines=dicts)
+	return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=nextWorkout)
 
 
 @app.route('/incorrectLogin')
@@ -121,16 +127,20 @@ def gymSchedule():
 	return render_template("gymSchedule.html")
 
 
-@app.route('/resultPage')
-def resultPage():
+@app.route('/cancelSuccess')
+def cancelSuccess():
+    return render_template("cancelSuccess.html")
+
+@app.route('/scheduleSuccess')
+def scheduleSuccess():
     # REPLACE THESE PLACEHOLDERS WITH ACTUAL DATA
-    schedule = True
-    cancel = False
-    machine = {'type': 'Treadmill', 'ID': 't11', 'Time': '02:00 pm - 02:30 pm'}
-    return render_template("resultPage.html", machine=machine, schedule=schedule, cancel=cancel)
+    workout = {'type': 'Treadmill', 'ID': 't11', 'Time': '02:00 pm - 02:30 pm'}
+    return render_template("scheduleSuccess.html", workout=workout)
 
 
-
+@app.route('/about')
+def about():
+	return render_template("about.html")
 
 if __name__ == '__main__':
 	try:
