@@ -19,8 +19,8 @@ dependencies:
   pre:
     # Download App Engine SDK
     # This is not necessary to deploy, its only necessary  to run local tests importing the App Engine SDK
-    - curl -o $HOME/google_appengine_1.9.30.zip https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.30.zip
-    - unzip -q -d $HOME $HOME/google_appengine_1.9.30.zip
+    #- curl -o $HOME/google_appengine_1.9.30.zip https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.30.zip
+    #- unzip -q -d $HOME $HOME/google_appengine_1.9.30.zip
     # Retrieve our secrets from the CircleCI environment
     - echo $CLIENT_SECRET | base64 --decode > ${HOME}/client-secret.json
     # vendor our dependencies
@@ -46,5 +46,5 @@ deployment:
         # create AppEngine
         #gcloud app create --region=us-central
         # deploy to AppEngine
-        - gcloud -q app deploy app.yaml
+        - gcloud -q beta app deploy app.yaml
 
