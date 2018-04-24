@@ -46,17 +46,20 @@
 
 		<div id="id02" class="modal">
 		  <span onclick="document.getElementById('id02').style.display='none'" class="close1" title="Close Modal">&times;</span>
-		  <form class="modal-content animate" action="{{ url_for('cancelSuccess') }}" method=post>
+		  <form class="modal-content animate" action="{{ url_for('cancelWorkout') }}" method=post>
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container">
-          <h3>Your next workout is:</h>
-          <p>+ Machine type: {{ nextWorkout[0] }}</p>
-          <p>+ Machine ID: {{ nextWorkout[1] }}</p>
-          <p>+ Duration: {{ nextWorkout[2] }}</p>
-          <p>+ Your UNI: {{ nextWorkout[3] }}</p>
+
+          <label><b>UNI</b></label>
+		      <input type="text" placeholder="Enter UNI.." name="uni" required>
+
+          <label><b>Are you sure you want to cancel your workout?</b></label><br>
+          <input type="radio" name="sure" value="yes" checked> Yes<br>
+          <input type="radio" name="sure" value="no" checked> No<br>
+
           <div class="clearfix1">
             <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn1">Cancel</button>
-            <button type="submit" class="signupbtn1">Cancel This Workout!</button>
+            <button type="submit" class="signupbtn1">Submit</button>
           </div>
 		    </div>
 		  </form>
