@@ -60,6 +60,7 @@ def login():
 
 	#return render_template("login.html",error=error)
 
+
 @app.route('/machine_schedule')
 def machine_schedule():
 	#machine = Machine()
@@ -132,6 +133,7 @@ def resultPage():
 @app.route('/pleaseLogIn')
 def pleaseLogIn():
 	return render_template("pleaseLogIn.html")
+
 
 
 
