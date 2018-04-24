@@ -10,7 +10,7 @@ class Schedule(Base_Model):
 		self.conn = self.db_connect()
 		self.cur = self.conn.cursor()
 		self.mid = mid
-		self.are_reserved = ["8:00","8:30","9:00","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00"]
+		self.are_reserved = ["08:00 - 08:30","08:30 - 09:00","09:00 - 09:30","10:00 - 10:00","10:30 - 11:00","11:00 - 11:30","11:30 - 12:00","12:00 - 12:30","12:30 - 13:00","13:00 - 13:30","13:30 - 14:00","14:00 - 14:30","14:30 - 15:00","15:00 - 15:30","15:30 - 16:00","16:00 - 16:30","16:30 - 17:00"]
 		#function to find out if a time slot for a certain machine is free or full
 	def is_available(self):
 		try:
@@ -56,6 +56,7 @@ class Schedule(Base_Model):
 			records = self.cur.fetchall()
 
 			temp = self.are_reserved
+			print(temp)
 			for record in records:
 				#record[2] corresponds to the time
 				time = record[2]
@@ -64,9 +65,13 @@ class Schedule(Base_Model):
 					string = string+":"+str(time.minute)+'0'
 				else:
 					string = string+":"+str(time.minute)
-
-				if string in temp:
-					temp.remove(string)
+				for s in temp:
+					t = s.split(" ")[0]
+					
+					if t == string:
+						temp.remove(s)
+				#if string in temp:
+				#	temp.remove(string)
 
 			return temp
 		except Exception as e:
