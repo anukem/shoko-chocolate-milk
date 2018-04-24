@@ -66,6 +66,9 @@
 		    </div>
 		  </form>
 		</div>
+    {% if incorrectLogin %}
+      <center><p style="color:red;font-weight:bold;">Incorrect Login</p></center>
+    {% endif %}
     {% extends "navBar.html" %}
     </body>
 
