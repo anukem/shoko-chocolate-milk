@@ -46,7 +46,9 @@ class Schedule(Base_Model):
 	def cancel_reservation(self,userid,mid):
 		err = 1
 		try:
-			self.cur.execute('DELETE FROM schedules WHERE userid=\'%s\' AND machineid=\'%s\''%userid%mid)
+			print('DELETE FROM schedules WHERE uid=\'{}\' AND mid=\'{}\''.format(userid,mid))
+			self.cur.execute('DELETE FROM schedules WHERE uid=\'{}\' AND mid=\'{}\''.format(userid,mid))
+			self.conn.commit()
 		except Exception as e:
 			print(e)
 			err = 0
@@ -64,7 +66,6 @@ class Schedule(Base_Model):
 			for record in records:
 				#record[2] corresponds to the time
 				time = record[2]
-				print(time)
 				string = str(time.hour)
 				if time.hour < 10:
 					string = "0"+ str(time.hour)
@@ -77,11 +78,9 @@ class Schedule(Base_Model):
 					t = s.split(" ")[0]
 					
 					if t == string:
-						print("same",t,string)
 						temp.remove(s)
 				#if string in temp:
 				#	temp.remove(string)
-			print(temp)
 
 			return temp
 		except Exception as e:

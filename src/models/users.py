@@ -48,7 +48,7 @@ class User(Base_Model):
 	def findUser(self):
 		try:
 
-			#print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
+			print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
 			self.cur.execute('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
 			records = self.cur.fetchall()
 			#print(records)

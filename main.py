@@ -38,10 +38,9 @@ def sign_up():
 			error = "invalid username/password"
 			return render_template("index.html",error=error)
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=['POST'])
 def login():
-	error = None
-	if request.method == "POST":
+	if request.method == 'POST':
 		try:
 			#print(request.form['uni'])
 			user = User(request.form["uni"],None,request.form["psw"])
@@ -80,6 +79,7 @@ def LoggedInUsers():
 	tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
 	tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
+
 
 	s = Schedule()
 	ret = s.get_user_schedule(2)
@@ -189,13 +189,20 @@ def about():
 @app.route('/cancelWorkout',methods=['POST'])
 def cancelWorkout():
 	s = Schedule()
+	u = User()
+	uni = request.form['uni']
+	uid = u.getIDFromName(uni)
 	workoutExists = True
-
-	nextWorkout = s.get_user_schedule(2)#["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
-	print(nextWorkout[0])
+	nextWorkout = s.get_user_schedule(uid)#["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
+	nextWorkout = nextWorkout[0]
+	print(uni)
+	print(nextWorkout)
+	nextWorkout.append(uni)
+	print(nextWorkout)
 	if nextWorkout is not None:
+		s.cancel_reservation(nextWorkout[0],nextWorkout[1])
 
-		return render_template("cancelWorkout.html", nextWorkout=nextWorkout[0])
+		return render_template("cancelWorkout.html", nextWorkout=nextWorkout,workoutExists = workoutExists)
 	else:
 		flash("no workout found")
 		return render_template()
