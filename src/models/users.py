@@ -3,7 +3,7 @@ import sys
 import os
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, '/shoko/src/models')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, './models')))
-from baseModel import Base_Model
+from Base_Model import Base_Model
 import sys
 
 class User(Base_Model):
@@ -32,7 +32,7 @@ class User(Base_Model):
 	def deleteUser(username):
 		err = 1
 		try:
-			self.cur.execute('DELETE FROM users WHERE name=\'%s\' and password=\'%s\''%str(self.username)%str(self.password))
+			self.cur.execute('DELETE FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
 		except:
 			print("could not execute statement")
 			err = 0
@@ -41,8 +41,8 @@ class User(Base_Model):
 
 	def findUser(self):
 		try:
-			#print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
-			self.cur.execute('DELETE FROM users WHERE name=\'%s\' and password=\'%s\''%str(self.username)%str(self.password))	
+			print('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),(self.password)))
+			self.cur.execute('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),(self.password)))
 			records = self.cur.fetchall()
 			#print(records)
 			#print(len(records))

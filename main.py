@@ -2,7 +2,6 @@ from flask import Flask,redirect,url_for
 from flask import render_template
 from flask import request
 
-
 import fix_path
 
 from models.users import User
@@ -72,11 +71,11 @@ def overall_schedule():
 
 @app.route('/LoggedInUsers',methods=['GET','POST'])
 def LoggedInUsers():
-    # mg = Machine(bm.Base_Model())
-    #
-	# dicts = mg.get_machine_schedule_dictionaries()
+	mg = Machine(bm.Base_Model())
 
-    tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
+	dicts = mg.get_machine_schedule_dictionaries()
+
+	"""tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
     tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
@@ -96,9 +95,9 @@ def LoggedInUsers():
         'Treadmills': treadmills,
         'Striders': striders,
         'Skis': skis
-    }
+		}"""
 
-    return render_template("LoggedInUsers.html", machines=machines)
+	return render_template("LoggedInUsers.html", machines=dicts)
 
 
 @app.route('/incorrectLogin')
@@ -129,9 +128,6 @@ def resultPage():
     machine = {'type': 'Treadmill', 'ID': 't11', 'Time': '02:00 pm - 02:30 pm'}
     return render_template("resultPage.html", machine=machine, schedule=schedule, cancel=cancel)
 
-@app.route('/pleaseLogIn')
-def pleaseLogIn():
-	return render_template("pleaseLogIn.html")
 
 
 

@@ -1,7 +1,7 @@
 # base class for accessing schedules table 
 
 from users import User
-from baseModel import Base_Model
+from Base_Model import Base_Model
 
 class Schedule(Base_Model):
 	def __init__(self,mid):
@@ -80,3 +80,22 @@ class Schedule(Base_Model):
 		return 1
 
 
+	def get_all_appointments(self):
+		total = []
+
+		try:
+			self.cur.execute('select email, time_reserved, type, M.name from users as U, machines as M, schedules as S where S.uid=U.uid and M.mid=S.mid')
+			records = self.cur.fetchall()
+			#print(records)
+			for record in records:
+				print(record)
+				temp = []
+				for item in record:
+					temp.append(str(item))
+				total.append(temp)
+
+			return total
+
+
+		except Exception as e:
+			print(e)
