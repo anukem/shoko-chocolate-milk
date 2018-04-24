@@ -27,24 +27,29 @@ class User(Base_Model):
 			self.conn.commit()
 		except Exception as e:
 			print(e)
+			print("not working!!!!!!!")
 			err = 0
 
 		return err
 
-	def deleteUser(self,username):
+
+	def deleteUser(self, username):
 		err = 1
 		try:
 			self.cur.execute('DELETE FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
-		except:
-			print("could not execute statement")
+			self.conn.commit()
+		except Exception as e:
+			print(e)
+			print("deleteUser() failed! => could not execute statement")
 			err = 0
 			
 		return err
 
 	def findUser(self):
 		try:
-			print('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),(self.password)))
-			self.cur.execute('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),(self.password)))
+
+			#print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
+			self.cur.execute('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
 			records = self.cur.fetchall()
 			#print(records)
 			#print(len(records))
