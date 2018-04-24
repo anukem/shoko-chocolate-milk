@@ -10,7 +10,7 @@ import sys
 
 class User(Base_Model):
 
-	def __init__(self,username,email,password):
+	def __init__(self,username=None,email=None,password=None):
 		Base_Model.__init__(self)
 		self.username = username
 		self.email = email
@@ -49,7 +49,7 @@ class User(Base_Model):
 		try:
 
 			#print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
-			self.cur.execute('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
+			self.cur.execute('SELECT FROM users WHERE name={0} and password={1}'.format(str(self.username),str(self.password)))
 			records = self.cur.fetchall()
 			#print(records)
 			#print(len(records))
@@ -70,6 +70,11 @@ class User(Base_Model):
 			record[3] = self.user_id
 		except Exception as e:
 			print(e)
+	def getNameFromID(self,id):
+		self.cur.execute('SELECT * FROM users WHERE name=\'{0}\''.format(id))
+		record = self.cur.fetchone()
+
+		return record[0]
 
 
 
