@@ -202,8 +202,8 @@ def cancelWorkout():
 
 		return render_template("cancelWorkout.html", nextWorkout=nextWorkout,workoutExists = workoutExists)
 	else:
-		flash("no workout found")
-		return render_template()
+		return redirect(url_for("index.html"))
+
 
 
 
