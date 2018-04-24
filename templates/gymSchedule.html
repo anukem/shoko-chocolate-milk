@@ -33,17 +33,16 @@
           </tr>
         </thead>
         <tbody>
-          <!-- ENTER ALL SCHEDULES WITH A FOR LOOP
-          {% for machine in machines %}
+          {% for workout in workouts %}
           <tr>
-            <td>{{ machine[type] }}</td>
-            <td>{{ machine[id] }}</td>
-            <td>{{ machine[time] }}</td>
-            <td>{{ machine[uni] }}</td>
+            <td>{{ machine[0] }}</td>
+            <td>{{ machine[1] }}</td>
+            <td>{{ machine[2] }}</td>
+            <td>{{ machine[3] }}</td>
           </tr>
           {% endfor %}
-          -->
-          <tr>
+
+          <!-- <tr>
             <td>Treadmill</td>
             <td>tr11</td>
             <td>02:00pm - 02:30 pm</td>
@@ -114,7 +113,7 @@
             <td>st13</td>
             <td>02:00pm - 02:30 pm</td>
             <td>lbj2368</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
