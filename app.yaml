@@ -28,4 +28,4 @@ env_variables:
     CLOUDSQL_CONNECTION_NAME: shoko-w4156:us-east1:library
     CLOUDSQL_USER: root
     DB_HOSTNAME: 35.229.79.41
-    DB_PASSWORD: i8KND8LOodrh2kbp	
+    DB_PASSWORD: i8KND8LOodrh2kbp 
