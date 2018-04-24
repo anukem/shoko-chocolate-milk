@@ -82,7 +82,8 @@ def LoggedInUsers():
 
 
 	s = Schedule()
-	ret = s.get_user_schedule()
+	#ret = s.get_user_schedule(2)
+	ret = None
 	s.db_close()
 	mg.db_close()
 	"""tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
