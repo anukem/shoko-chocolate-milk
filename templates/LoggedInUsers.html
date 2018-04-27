@@ -21,8 +21,6 @@
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container1">
 
-          <label><b>UNI</b></label>
-		      <input type="text" placeholder="Enter UNI.." name="uni" required><br><br>
           <label><b>Choose Machine And Time:</b></label><br>
           {% for machineType in machines %}
             <br><br>{{ machineType }} <br>
@@ -52,9 +50,6 @@
 		  <form class="modal-content animate" action="{{ url_for('cancelWorkout') }}" method=post>
 		  	<script type="text/javascript" src="{{ url_for('static', filename='js/landingScript.js') }}"></script>
 		    <div class="container">
-
-          <label><b>UNI</b></label>
-		      <input type="text" placeholder="Enter UNI.." name="uni" required>
 
           <label><b>Are you sure you want to cancel your workout?</b></label><br>
           <input type="radio" name="sure" value="yes" checked> Yes<br>
