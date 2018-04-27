@@ -63,10 +63,12 @@ def login():
 			res = user.findUser()
 			pwd = user.getPwd()
 			user.db_close()
-			if res[0] is True and pwd is request.form["psw"]:
+		
+			if res[0] is True and pwd == request.form['psw']:
 				print("res")
 				print(res[1])
-				session['uid'] = res[1] 
+				session['uid'] = res[1]
+				
 				return redirect(url_for("LoggedInUsers"))
 			else:
 				error = "invalid username/password"
@@ -94,6 +96,9 @@ def LoggedInUsers():
 
 	if 'uid' not in session:
 		return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
+	else:
+		if(session['uid'] == None):
+			return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
 
 	mg = Machine(bm.Base_Model())
 
@@ -131,6 +136,9 @@ def scheduleWorkout():
 
 	if 'uid' not in session:
 		return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
+	else:
+		if(session['uid'] == None):
+			return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
 	s = Schedule()
 	u = User()
 	try:
@@ -188,6 +196,9 @@ def about():
 def cancelWorkout():
 	if 'uid' not in session:
 		return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
+	else:
+		if(session['uid'] == None):
+			return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
 	s = Schedule()
 	u = User()
 	uni = request.form['uni']
@@ -208,7 +219,8 @@ def cancelWorkout():
 
 @app.route('/logout')
 def logout():
-	session["uni"] = None
+	print("logout")
+	session["uid"] = None
 	return redirect(url_for("index"))
 
 
