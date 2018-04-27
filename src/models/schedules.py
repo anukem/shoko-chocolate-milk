@@ -121,14 +121,18 @@ class Schedule(Base_Model):
 			self.cur.execute('select * from schedules where uid = {0}'.format(str(uid)))
 
 			records = self.cur.fetchall()
+			print(records)
+			print("len",len(records))
+			if(len(records)>0):
+				for record in records:
+					temp = []
+					for item in record:
+						temp.append(str(item))
 
-			for record in records:
-				temp = []
-				for item in record:
-					temp.append(str(item))
-
-				ret.append(temp)
-			return ret
+					ret.append(temp)
+				return ret
+			else:
+				return None
 
 
 		except Exception as e:

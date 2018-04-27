@@ -3,6 +3,8 @@
 <html>
     <head>
       <title> SHOKO | Logged In Users </title>
+      
+
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/landingStyle.css') }}">
     </head>
 
@@ -14,7 +16,6 @@
 			<button class="mainButtons" onclick="document.getElementById('id02').style.display='block'" >Cancel Workout</button>
    		<button class="mainButtons" onclick="document.getElementById('id01').style.display='block'" >Schedule Workout</button>
 		</center>
-
 		<div id="id01" class="modal1">
 		  <span onclick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">×</span>
 		  <form class="modal1-content animate" action="{{ url_for('scheduleWorkout') }}" method="POST">
@@ -61,7 +62,9 @@
           </div>
 		    </div>
 		  </form>
+
 		</div>
+    <center><p style="color:red;font-weight:bold;"> {{ err }}</p></center>
     {% extends "navBar.html" %}
     </body>
 

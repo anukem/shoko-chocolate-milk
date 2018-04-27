@@ -27,8 +27,10 @@ def index():
 		return render_template("index.html")
 
 #placeholder function
-@app.route('/sign_up', methods=['POST'])
+@app.route('/sign_up')
 def sign_up():
+	if request.method == 'GET':
+		return redirect(url_for('index',incorrectLogin=False,error = "Access Denied"))
 	error = None
 	if request.method == "POST":
 		res = None
@@ -37,11 +39,11 @@ def sign_up():
 		res = user.addUser()
 
 		if res != True:
-			print("error")
-			print(res)
+			# print("error")
+			# print(res)
 			return redirect(url_for("index",error=res,incorrectLogin=True))
 		elif res is True:
-			print("added user")
+			# print("added user")
 
 			uid = user.getIDFromName(request.form["uni"])
 			session['uid'] = uid
@@ -54,8 +56,10 @@ def sign_up():
 			error = "server error"
 			return redirect(url_for("index",error=error,incorrectLogin=False))
 
-@app.route("/login", methods=['POST'])
+@app.route("/login")
 def login():
+	if request.method == 'GET':
+		return redirect(url_for('index',incorrectLogin=False,error = "Access Denied"))
 	if request.method == 'POST':
 		try:
 			#print(request.form['uni'])
@@ -65,8 +69,8 @@ def login():
 			user.db_close()
 		
 			if res[0] is True and pwd == request.form['psw']:
-				print("res")
-				print(res[1])
+				# print("res")
+				# print(res[1])
 				session['uid'] = res[1]
 				
 				return redirect(url_for("LoggedInUsers"))
@@ -114,11 +118,16 @@ def LoggedInUsers():
 	s.db_close()
 	mg.db_close()
 
-	return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=ret,uid=session['uid'])
+	if request.args['err'] != None:
+		return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=ret,uid=session['uid'],err=request.args['err'])
+	else:
+		return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=ret,uid=session['uid'])
 
 
 @app.route('/incorrectLogin')
 def incorrectLogin():
+	if request.method == 'GET':
+		return redirect(url_for('index',incorrectLogin=False,error = "Access Denied"))
 	if request.method == "POST":
 		user = User(request.form["uni"],request.form["email"],request.form["psw"])
 		res = user.findUser()
@@ -131,9 +140,10 @@ def incorrectLogin():
 			error = "invalid username/password"
 			return render_template("incorrectLogin.html",error=error)
 
-@app.route('/scheduleWorkout',methods=['POST'])
+@app.route('/scheduleWorkout',methods=['GET','POST'])
 def scheduleWorkout():
-
+	if request.method == 'GET':
+		return redirect(url_for('index',incorrectLogin=False,error = "Access Denied"))
 	if 'uid' not in session:
 		return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
 	else:
@@ -147,15 +157,15 @@ def scheduleWorkout():
 		mid = request.form['optradio']
 		#name = u.getNameFromID(uni)
 		uid = u.getIDFromName(uni)
-		print(uid)
-		print("w is:")
+		# print(uid)
+		# print("w is:")
 		w = [uid,workoutTime,mid]
-		print(w)
+		# print(w)
 		success = s.make_reservation(workoutTime,uid,mid)
 		if success == True:
 			return redirect(url_for("scheduleSuccess",workout=w))
 		else:
-			print("error")
+			# print("error")
 			redirect(url_for("index.html"))
 	except Exception as e:
 		print(e)
@@ -166,7 +176,6 @@ def scheduleWorkout():
 def gymSchedule():
 	s = Schedule()
 	ret = s.get_all_appointments()
-	print(ret)
 	return render_template("gymSchedule.html",workouts = ret)
 
 
@@ -192,36 +201,47 @@ def scheduleSuccess():
 def about():
 	return render_template("about.html")
 
-@app.route('/cancelWorkout',methods=['POST'])
+@app.route('/cancelWorkout',methods=['GET','POST'])
 def cancelWorkout():
+	if request.method == 'GET':
+		return redirect(url_for('index',incorrectLogin=False,error = "Access Denied"))
 	if 'uid' not in session:
 		return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
 	else:
 		if(session['uid'] == None):
 			return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
-	s = Schedule()
-	u = User()
-	uni = request.form['uni']
-	uid = u.getIDFromName(uni)
-	workoutExists = True
-	nextWorkout = s.get_user_schedule(uid)#["Treadill", "tr11", "14:00 - 14:30", "sk4120"]
-	nextWorkout = nextWorkout[0]
-	print(uni)
-	print(nextWorkout)
-	nextWorkout.append(uni)
-	print(nextWorkout)
-	if nextWorkout is not None:
-		s.cancel_reservation(nextWorkout[0],nextWorkout[1])
+	try:
+		s = Schedule()
+		u = User()
 
-		return render_template("cancelWorkout.html", nextWorkout=nextWorkout,workoutExists = workoutExists)
-	else:
-		return redirect(url_for("index.html"))
+		uid = session['uid']
+		workoutExists = True
+		nextWorkout = s.get_user_schedule(uid)#["Treadmill", "tr11", "14:00 - 14:30", "sk4120"]
+		print(nextWorkout)
+		if nextWorkout == None:
+			print("no workouts")
+			return redirect(url_for('LoggedInUsers',err="you have no workouts scheduled"))
+		nextWorkout = nextWorkout[0]
 
+		print(nextWorkout)
+		# nextWorkout.append(uni)
+		print(nextWorkout)
+		if nextWorkout is not None:
+			s.cancel_reservation(uid,nextWorkout[1])
+
+			return render_template("cancelWorkout.html", nextWorkout=nextWorkout,workoutExists = workoutExists)
+		else:
+			return redirect(url_for('index',incorrectLogin=False,error = "server error. Please try again"))
+
+	except Exception as e:
+		print(e)
+
+		return redirect(url_for('index',incorrectLogin=False,error = "server error. Please try again"))
 @app.route('/logout')
 def logout():
 	print("logout")
 	session["uid"] = None
-	return redirect(url_for("index"))
+	return redirect(url_for("index",error="logged out successfuly",incorrectLogin=True))
 
 
 if __name__ == '__main__':
