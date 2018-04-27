@@ -21,17 +21,25 @@ def index():
 	print(len(request.args))
 	if len(request.args) > 0:
 		incorrectLogin = request.args['incorrectLogin']
-	return render_template("index.html",incorrectLogin=incorrectLogin)
+	return render_template("index.html",incorrectLogin=incorrectLogin,error = request.args['error'])
 
 #placeholder function
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
 	error = None
 	if request.method == "POST":
+		res = None
+		
 		user = User(request.form["uni"],request.form["email"], request.form["psw"]	)
-		res = user.addUser() 
-		print("added user")
-		if res is True:
+		res = user.addUser()
+
+		if res != True:
+			print("error")
+			print(res)
+			return redirect(url_for("index",error=res,incorrectLogin=True))
+		elif res is True:
+			print("added user")
+
 			uid = user.getIDFromName(request.form["uni"])
 			session['uid'] = uid
 			user.db_close()
@@ -40,8 +48,8 @@ def sign_up():
 			return render_template("LoggedInUsers.html",error=error,machines=machines)
 		else:
 			user.db_close()
-			error = "invalid username/password"
-			return render_template("index.html",error=error)
+			error = "server error"
+			return redirect(url_for("index",error=error,incorrectLogin=False))
 
 @app.route("/login", methods=['POST'])
 def login():

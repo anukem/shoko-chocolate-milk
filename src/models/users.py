@@ -20,15 +20,19 @@ class User(Base_Model):
 		self.user_id = None
 
 	def addUser(self):
-		err = 1
+		err = True
+		res = self.findUser()
+		print(res)
 		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
+		if(res[0] == True):
+			err ="username/password already exists"
+			return err
 		try:
 			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("');"))
 			self.conn.commit()
 		except Exception as e:
 			print(e)
-			print("not working!!!!!!!")
-			err = 0
+			err = "exception"
 
 		return err
 
