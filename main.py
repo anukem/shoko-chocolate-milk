@@ -18,10 +18,13 @@ Session(app)
 @app.route('/')
 def index():
 	incorrectLogin = False
+	error = ""
 	print(len(request.args))
 	if len(request.args) > 0:
 		incorrectLogin = request.args['incorrectLogin']
-	return render_template("index.html",incorrectLogin=incorrectLogin,error = request.args['error'])
+		return render_template("index.html",incorrectLogin=incorrectLogin,error = request.args['error'])
+	else:
+		return render_template("index.html")
 
 #placeholder function
 @app.route('/sign_up', methods=['POST'])
@@ -58,16 +61,16 @@ def login():
 			#print(request.form['uni'])
 			user = User(request.form["uni"],None,request.form["psw"])
 			res = user.findUser()
-
+			pwd = user.getPwd()
 			user.db_close()
-			if res[0] is True:
+			if res[0] is True and pwd is request.form["psw"]:
 				print("res")
 				print(res[1])
 				session['uid'] = res[1] 
 				return redirect(url_for("LoggedInUsers"))
 			else:
 				error = "invalid username/password"
-				return redirect(url_for("index",incorrectLogin=True))
+				return redirect(url_for("index",incorrectLogin=True,error="incorrect username/password"))
 		except Exception as e:
 			print(e)
 			return redirect(url_for("index"))

@@ -36,6 +36,16 @@ class User(Base_Model):
 
 		return err
 
+	def getPwd(self):
+
+		self.cur.execute('SELECT * FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
+		record = self.cur.fetchone()
+		if record != None:
+			return record[2]
+		else:
+			return False
+
+
 
 	def deleteUser(self, username):
 		err = 1
