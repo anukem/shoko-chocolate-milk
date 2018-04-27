@@ -32,7 +32,11 @@ class Schedule(Base_Model):
 
 	def make_reservation(self,time,userid,mid):
 		try:
-			self.cur.execute("INSERT INTO schedules VALUES (\'{0}\',{1},\'{2}\'").format(userid,mid,time) 
+			time = time.split(" ")[0]
+			print("query")
+			print("INSERT INTO schedules VALUES( {0},{1},\'{2}\')".format(userid,mid,time))
+			self.cur.execute("INSERT INTO schedules VALUES( \'{0}\',\'{1}\',\'{2}\')".format(userid,mid,time))
+			self.conn.commit()
 			return True
 		except Exception as e:
 			print(e)
@@ -42,7 +46,9 @@ class Schedule(Base_Model):
 	def cancel_reservation(self,userid,mid):
 		err = 1
 		try:
-			self.cur.execute('DELETE FROM schedules WHERE userid=\'%s\' AND machineid=\'%s\''%userid%mid)
+			print('DELETE FROM schedules WHERE uid=\'{}\' AND mid=\'{}\''.format(userid,mid))
+			self.cur.execute('DELETE FROM schedules WHERE uid=\'{}\' AND mid=\'{}\''.format(userid,mid))
+			self.conn.commit()
 		except Exception as e:
 			print(e)
 			err = 0
@@ -61,13 +67,16 @@ class Schedule(Base_Model):
 				#record[2] corresponds to the time
 				time = record[2]
 				string = str(time.hour)
+				if time.hour < 10:
+					string = "0"+ str(time.hour)
 				if(time.minute is 0):
 					string = string+":"+str(time.minute)+'0'
 				else:
 					string = string+":"+str(time.minute)
+
 				for s in temp:
 					t = s.split(" ")[0]
-
+					
 					if t == string:
 						temp.remove(s)
 				#if string in temp:

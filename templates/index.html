@@ -59,15 +59,13 @@
 
 		    <div class="container" style="background-color:#f1f1f1">
 		      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-          {% if incorrectLogin %}
-            <span style="color:red;padding-left:39%;font-weight:bold;">Incorrect Login</span>
-          {% endif %}
+         
           <span class="psw">Forgot<a href="#"> password?</a></span>
 		    </div>
 		  </form>
 		</div>
     {% if incorrectLogin %}
-      <center><p style="color:red;font-weight:bold;">Incorrect Login</p></center>
+      <center><p style="color:red;font-weight:bold;"> {{ error }}</p></center>
     {% endif %}
     {% extends "navBar.html" %}
     </body>

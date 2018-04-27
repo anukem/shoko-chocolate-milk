@@ -20,17 +20,31 @@ class User(Base_Model):
 		self.user_id = None
 
 	def addUser(self):
-		err = 1
+		err = True
+		res = self.findUser()
+		print(res)
 		print("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("')"))
+		if(res[0] == True):
+			err ="username/password already exists"
+			return err
 		try:
 			self.cur.execute("INSERT INTO users VALUES (" + ("'") + (self.username) +("'") +(", '")+ (self.email) + ("','") + (self.password)+("');"))
 			self.conn.commit()
 		except Exception as e:
 			print(e)
-			print("not working!!!!!!!")
-			err = 0
+			err = "exception"
 
 		return err
+
+	def getPwd(self):
+
+		self.cur.execute('SELECT * FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
+		record = self.cur.fetchone()
+		if record != None:
+			return record[2]
+		else:
+			return False
+
 
 
 	def deleteUser(self, username):
@@ -48,18 +62,20 @@ class User(Base_Model):
 	def findUser(self):
 		try:
 
-			#print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
-			self.cur.execute('SELECT FROM users WHERE name={0} and password={1}'.format(str(self.username),str(self.password)))
+			print('SELECT * FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
+			self.cur.execute('SELECT * FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
 			records = self.cur.fetchall()
+			print(records)
+			print(len(records))
 			#print(records)
 			#print(len(records))
 			if(len(records) >= 1):
-				return True
+				return True,records[0][3]
 			else:
-				return False
+				return False,None
 		except Exception as e :
 			print(e)
-			return False
+			return False,None
 
 	def setUserID(self):
 		err = 1
@@ -71,10 +87,16 @@ class User(Base_Model):
 		except Exception as e:
 			print(e)
 	def getNameFromID(self,id):
-		self.cur.execute('SELECT * FROM users WHERE name=\'{0}\''.format(id))
+		self.cur.execute('SELECT * FROM users WHERE uid=\'{0}\''.format(id))
 		record = self.cur.fetchone()
 
 		return record[0]
+
+	def getIDFromName(self,name):
+		self.cur.execute('SELECT * FROM users WHERE name = \'{0}\''.format(name))
+		record = self.cur.fetchone()
+
+		return record[3]
 
 
 
