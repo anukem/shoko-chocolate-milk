@@ -27,7 +27,7 @@ def index():
 		return render_template("index.html")
 
 #placeholder function
-@app.route('/sign_up')
+@app.route('/sign_up',methods=['GET','POST'])
 def sign_up():
 	if request.method == 'GET':
 		return redirect(url_for('index',incorrectLogin=False,error = "Access Denied"))
@@ -56,7 +56,7 @@ def sign_up():
 			error = "server error"
 			return redirect(url_for("index",error=error,incorrectLogin=False))
 
-@app.route("/login")
+@app.route("/login",methods =['POST','GET'])
 def login():
 	if request.method == 'GET':
 		return redirect(url_for('index',incorrectLogin=False,error = "Access Denied"))
@@ -95,7 +95,7 @@ def machine_schedule():
 def overall_schedule():
 	return render_template("overallDaySchedule.html")
 
-@app.route('/LoggedInUsers',methods=['GET','POST'])
+@app.route('/LoggedInUsers')
 def LoggedInUsers():
 
 	if 'uid' not in session:
@@ -117,8 +117,9 @@ def LoggedInUsers():
 	ret = s.get_user_schedule(session["uid"])
 	s.db_close()
 	mg.db_close()
-
-	if request.args['err'] != None:
+	print("err")
+	print('err' in request.args)
+	if 'err' in request.args:
 		return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=ret,uid=session['uid'],err=request.args['err'])
 	else:
 		return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=ret,uid=session['uid'])
@@ -151,25 +152,28 @@ def scheduleWorkout():
 			return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
 	s = Schedule()
 	u = User()
+	m = Machine(bm.Base_Model())
 	try:
 		workoutTime = request.form[("time")]
-		uni = request.form["uni"]
 		mid = request.form['optradio']
+		mid = int(mid)
+
 		#name = u.getNameFromID(uni)
-		uid = u.getIDFromName(uni)
+		uid = session['uid']
+		mType = m.getTypeFromID(mid)
+
 		# print(uid)
 		# print("w is:")
-		w = [uid,workoutTime,mid]
-		# print(w)
+
 		success = s.make_reservation(workoutTime,uid,mid)
 		if success == True:
-			return redirect(url_for("scheduleSuccess",workout=w))
+			return redirect(url_for("scheduleSuccess",mType=mType,workoutTime=workoutTime,mid=mid))
 		else:
 			# print("error")
-			redirect(url_for("index.html"))
+			return redirect(url_for("index",incorrectLogin = False,error = "reservation failed"))
 	except Exception as e:
 		print(e)
-		redirect(url_for("index.html"))
+		return redirect(url_for("index",incorrectLogin = False,error = "server error"))
 	#s.makeReservation()
 
 @app.route('/gymSchedule',methods=['GET','POST'])
@@ -186,14 +190,15 @@ def cancelSuccess():
 @app.route('/scheduleSuccess',methods=['POST','GET'])
 def scheduleSuccess():
 	if request.method == 'GET':
-
-		w = request.args['workout']
-		return render_template("scheduleSuccess.html",workout=w)
+		
+		mType = request.args['mType']
+		workoutTime = request.args['workoutTime']
+		mid = request.args['mid']
+		
+		return render_template("scheduleSuccess.html",mType=mType,workoutTime=workoutTime,mid=mid)
 
 	if request.method == 'POST':
-		w = request.args['workout']
-
-		return render_template("scheduleSuccess.html",workout=w)
+		return redirect(url_for('index',incorrectLogin=False,error = "Access Denied"))
 
 
 

@@ -16,11 +16,14 @@ class Base_Model:
 
 
 	def db_connect(self):
-		self.conn = psy.connect(host=self.hostname, 
-			user=self.db_username, 
-			password=self.db_password, 
-			dbname=self.dbname)
-		return self.conn 
+		try:
+			self.conn = psy.connect(host=self.hostname, 
+				user=self.db_username, 
+				password=self.db_password, 
+				dbname=self.dbname)
+			return self.conn 
+		except Exception as e:
+			print(e)
 
 	def db_close(self):
 		self.conn.close()

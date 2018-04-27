@@ -56,3 +56,23 @@ class Machine(Base_Model):
 			schedule.db_close()
 		mg.db_close()
 		return types
+
+	def getTypeFromID(self,mid):
+		try:
+			print('SELECT * FROM machines WHERE mid={}'.format(mid))
+
+			conn = self.db_connect()
+			print("connected")
+			cur = conn.cursor()
+			print("cursor")
+
+			cur.execute('SELECT * FROM machines WHERE mid={}'.format(mid))
+			record = cur.fetchone()
+			print("record",record)
+			print(record[2])
+			return record[2]
+		except Exception as e:
+			print("exception")
+			print(e)
+
+
