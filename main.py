@@ -1,6 +1,7 @@
-from flask import Flask,redirect,url_for,flash
+from flask import Flask,redirect,url_for,flash,session
 from flask import render_template
 from flask import request
+from flask_session import Session
 
 import fix_path
 
@@ -10,7 +11,10 @@ from models.schedules import Schedule
 from models import baseModel as bm
 
 app = Flask(__name__)
-
+SESSION_TYPE = 'filesystem'
+app.config.from_object(__name__)
+app.secret_key = 'key'
+Session(app)
 @app.route('/')
 def index():
 	incorrectLogin = False
@@ -25,13 +29,14 @@ def sign_up():
 	error = None
 	if request.method == "POST":
 		user = User(request.form["uni"],request.form["email"], request.form["psw"]	)
-		res = user.addUser()
+		res = user.addUser() 
 		print("added user")
-		if res is 1:
+		if res is True:
+			uid = user.getIDFromName(request.form["uni"])
+			session['uid'] = uid
 			user.db_close()
 			mg = Machine(bm.Base_Model())
 			machines = mg.get_all_machines()
-			loggedIn = True
 			return render_template("LoggedInUsers.html",error=error,machines=machines)
 		else:
 			user.db_close()
@@ -47,7 +52,10 @@ def login():
 			res = user.findUser()
 
 			user.db_close()
-			if res is True:
+			if res[0] is True:
+				print("res")
+				print(res[1])
+				session['uid'] = res[1] 
 				return redirect(url_for("LoggedInUsers"))
 			else:
 				error = "invalid username/password"
@@ -82,38 +90,11 @@ def LoggedInUsers():
 
 
 	s = Schedule()
-	#ret = s.get_user_schedule(2)
-	ret = None
+	ret = s.get_user_schedule(session["uid"])
 	s.db_close()
 	mg.db_close()
-	"""tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
-    tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
-    tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
 
-	tr11times = ["08:00 - 08:30", "14:30 - 15:00"]
-	tr12times = ["08:00 - 08:30", "14:30 - 15:00"]
-	tr13times = ["08:00 - 08:30", "14:30 - 15:00"]
-
-	st11times = ["08:00 - 08:30", "14:30 - 15:00"]
-	st12times = ["08:00 - 08:30", "14:30 - 15:00"]
-	st13times = ["08:00 - 08:30", "14:30 - 15:00"]
-
-	sk11times = ["08:00 - 08:30", "14:30 - 15:00"]
-	sk12times = ["08:00 - 08:30", "14:30 - 15:00"]
-	sk13times = ["08:00 - 08:30", "14:30 - 15:00"]
-
-	treadmills = { 'tr11': tr11times, 'tr12': tr12times, 'tr13': tr13times }
-	striders = { 'st11': st11times, 'st12': st12times, 'st13': st13times }
-	skis = { 'sk11': sk11times, 'sk12': sk12times, 'sk13': sk13times }
-
-	machines = {
-        'Treadmills': treadmills,
-        'Striders': striders,
-        'Skis': skis
-		}"""
-
-
-	return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=ret)
+	return render_template("LoggedInUsers.html", machines=dicts, nextWorkout=ret,uid=session['uid'])
 
 
 @app.route('/incorrectLogin')
@@ -205,8 +186,10 @@ def cancelWorkout():
 	else:
 		return redirect(url_for("index.html"))
 
-
-
+@app.route('/logout')
+def logout():
+	session["uni"] = None
+	return redirect(url_for("index"))
 
 
 if __name__ == '__main__':
@@ -215,4 +198,5 @@ if __name__ == '__main__':
 	  googleclouddebugger.enable()
 	except ImportError:
 	  pass
+
 	app.run(debug=True)

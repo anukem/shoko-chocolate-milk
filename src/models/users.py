@@ -48,18 +48,20 @@ class User(Base_Model):
 	def findUser(self):
 		try:
 
-			print('SELECT * FROM users WHERE name=\'%s\''%str(self.username))
-			self.cur.execute('SELECT FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
+			print('SELECT * FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
+			self.cur.execute('SELECT * FROM users WHERE name=\'{0}\' and password=\'{1}\''.format(str(self.username),str(self.password)))
 			records = self.cur.fetchall()
+			print(records)
+			print(len(records))
 			#print(records)
 			#print(len(records))
 			if(len(records) >= 1):
-				return True
+				return True,records[0][3]
 			else:
-				return False
+				return False,None
 		except Exception as e :
 			print(e)
-			return False
+			return False,None
 
 	def setUserID(self):
 		err = 1
