@@ -91,6 +91,10 @@ def overall_schedule():
 
 @app.route('/LoggedInUsers',methods=['GET','POST'])
 def LoggedInUsers():
+
+	if 'uid' not in session:
+		return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
+
 	mg = Machine(bm.Base_Model())
 
 	dicts = mg.get_machine_schedule_dictionaries()
@@ -124,6 +128,9 @@ def incorrectLogin():
 
 @app.route('/scheduleWorkout',methods=['POST'])
 def scheduleWorkout():
+
+	if 'uid' not in session:
+		return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
 	s = Schedule()
 	u = User()
 	try:
@@ -179,6 +186,8 @@ def about():
 
 @app.route('/cancelWorkout',methods=['POST'])
 def cancelWorkout():
+	if 'uid' not in session:
+		return redirect(url_for('index',incorrectLogin=False,error = "please login to access this page"))
 	s = Schedule()
 	u = User()
 	uni = request.form['uni']
